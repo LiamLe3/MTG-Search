@@ -1,0 +1,27 @@
+.home-search-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 524px;
+    width: 100%;
+}
+
+.search-bar {
+    display: flex;
+    background-color: #242031;
+    padding: 12px 14px 12px 62px;
+    border: 2px solid #4f4756;
+    border-radius: 5px;
+    height: 63px;
+    width: 100%;
+    font-size: 30px;
+    color: white;
+}
+
+.search-bar.focused {
+    background-color: #342d48;
+    border: 2px solid #5f5668; 
+    outline:none;
+    box-shadow: none;
+    caret-color: white;
+}

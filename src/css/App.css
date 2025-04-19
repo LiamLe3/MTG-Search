@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  min-height: 100vh;
+  background-color: #431e3f;
+}
+
+.home-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home-title {
+  color: white;
+  font-weight: 200;
+}
+
+.home-title strong {
+  font-weight: 700;
+}

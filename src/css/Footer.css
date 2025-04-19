@@ -1,0 +1,34 @@
+footer {
+  background-color: #19181f;
+}
+
+.footer-nav {
+  width: 100%;
+  display:flex;
+  justify-content: center;
+}
+
+.footer-column {
+  padding: 30px;
+}
+
+.footer-column h5 {
+  color: white;
+  font-size: 20px;
+  font-weight: 400;
+  border-bottom: 2px solid white;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column a {
+  text-decoration: none;
+  color: #d0d0d0;
+}
+
+.footer-column a:hover {
+  text-decoration: underline;
+  color: #efefef;
+}
