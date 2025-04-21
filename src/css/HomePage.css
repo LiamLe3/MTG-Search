@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+body {
+  background: black;
+}
+
 main {
   min-height: 100vh;
   background-color: #431e3f;
@@ -12,8 +16,8 @@ main {
 .home-page {
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 

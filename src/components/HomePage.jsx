@@ -1,8 +1,8 @@
-import '../css/App.css'
+import '../css/HomePage.css'
 import HomeSearch from './HomeSearch';
 import HomeLinks from './HomeLinks';
 import Footer from './Footer';
-export default function App() {
+export default function HomePage() {
   return (
     <>
       <main>

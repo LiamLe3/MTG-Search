@@ -1,16 +1,17 @@
 import { useState } from "react";
 import '../css/HomeSearch.css';
-import HomeLogo from './HomeLogo';
+import Logo from './Logo';
 
 export default function HomeSearch() {
   const [isFocused, setIsFocused] = useState(false);
   
   return (
     <form className='home-search-form' action="/search">
-      <HomeLogo />
+      <Logo type="home" />
       <input 
         className={ `search-bar ${isFocused ? 'focused' : '' } ` }
-        type="text" onFocus={() => setIsFocused(true)} 
+        type="text"
+        onFocus={() => setIsFocused(true)} 
         onBlur={() => setIsFocused(false)} 
         autoFocus
       />

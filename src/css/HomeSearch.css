@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.search-bar {
+.home-search-form .search-bar {
     display: flex;
     background-color: #242031;
     padding: 12px 14px 12px 62px;
@@ -16,12 +16,12 @@
     width: 100%;
     font-size: 30px;
     color: white;
+    caret-color: white;
 }
 
-.search-bar.focused {
+.home-search-form .search-bar.focused {
     background-color: #342d48;
     border: 2px solid #5f5668; 
     outline:none;
     box-shadow: none;
-    caret-color: white;
 }

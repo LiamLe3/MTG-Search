@@ -7,6 +7,11 @@
     margin-left: 8px;
 }
 
+.header-logo {
+    height: 48px;
+    width: 48px;
+}
+
 .logo {
     height: 100%;
     width: 100%;

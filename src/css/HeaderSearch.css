@@ -1,0 +1,33 @@
+.header-search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  cursor: text;
+  fill: grey;
+}
+
+.header-search-form:hover,
+.header-search-form.focused {
+  fill: lightgrey;
+}
+
+.header-search-form svg {
+  height: 20px;
+}
+
+.header-search-form .search-bar {
+  display: flex;
+  background-color: #242031;
+  width: 100%;
+  font-size: 20px;
+  caret-color: white;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  border-right: 2px solid white;
+  color: white;
+  padding: 0 5px 0 5px;
+}
