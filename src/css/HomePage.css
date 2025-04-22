@@ -10,7 +10,6 @@ body {
 
 main {
   min-height: 100vh;
-  background-color: #431e3f;
 }
 
 .home-page {
@@ -19,6 +18,7 @@ main {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: #431e3f;
 }
 
 .home-title {

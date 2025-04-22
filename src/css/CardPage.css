@@ -1,0 +1,9 @@
+main {
+  background-color: white;
+}
+
+.card-page {
+  max-width: 1000px;
+  display: flex;
+  flex-flow: row nowrap;
+}
