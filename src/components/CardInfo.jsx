@@ -8,7 +8,6 @@ export default function CardInfo({data}) {
     } else if(data.game_changer) {
       return 'LEGAL/GC';
     }
-    
     return 'LEGAL';
   }
   
