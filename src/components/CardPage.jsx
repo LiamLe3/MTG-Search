@@ -9,7 +9,7 @@ export default function CardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://api.scryfall.com/cards/named?fuzzy=biorhythm')
+    fetch('https://api.scryfall.com/cards/named?fuzzy=constrictor-mage')
       .then(response => response.json())
       .then(data => {
         setCard(data);

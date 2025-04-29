@@ -1,6 +1,5 @@
 import '../css/CardInfo.css';
 export default function CardInfo({data}) {
-  const game_changer = data.game_changer ? "Yes" : "No";
 
   function getLegality() {
     if(data.legalities.commander === 'banned'){
@@ -11,6 +10,13 @@ export default function CardInfo({data}) {
     return 'LEGAL';
   }
   
+  function parseTextWithSymbols(text) {
+    const regex = /\{(.*?)\}/g;
+    
+  }
+
+  parseTextWithSymbols('{G}{2}');
+  const legality = getLegality();
 
   return (
     <section className="card-info">
@@ -23,7 +29,7 @@ export default function CardInfo({data}) {
         <p className="card-flavour">{data.flavor_text}</p>
       </div>
       <p className="info-block">{data.artist}</p>
-      <p className="info-block">{getLegality} Commander</p>
+      <p className="info-block">{legality} Commander</p>
     </section>
   );
 };
