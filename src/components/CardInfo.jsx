@@ -1,3 +1,4 @@
+import React from 'react';
 import '../css/CardInfo.css';
 export default function CardInfo({data}) {
 
@@ -10,17 +11,41 @@ export default function CardInfo({data}) {
     return 'LEGAL';
   }
   
-  function parseTextWithSymbols(text) {
+  function replaceSymbols(text) {
     const regex = /\{(.*?)\}/g;
-    
+    const result = [];
+    let lastIndex = 0;
+    let match;
+  
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        result.push(text.slice(lastIndex, match.index));
+      }
+  
+      const symbol = match[1];
+      result.push(
+        <abbr
+          key={result.length}
+          className={`symbol symbol-${symbol}`}
+          title={symbol}
+        />
+      );
+  
+      lastIndex = regex.lastIndex;
+    }
+  
+    if (lastIndex < text.length) {
+      result.push(text.slice(lastIndex));
+    }
+  
+    return result;
   }
-
-  parseTextWithSymbols('{G}{2}');
+  
   const legality = getLegality();
-
+  
   return (
     <section className="card-info">
-      <p className="info-block">{data.name} {data.mana_cost}</p>
+      <p className="info-block">{data.name} {replaceSymbols(data.mana_cost)}</p>
       <p className="info-block">{data.type_line}</p>
       <div className="info-block">
         {data.oracle_text.split('\n').map((line) => (
@@ -30,6 +55,7 @@ export default function CardInfo({data}) {
       </div>
       <p className="info-block">{data.artist}</p>
       <p className="info-block">{legality} Commander</p>
+      <p><abbr className="symbol symbol-T" title="weee"></abbr></p>
     </section>
   );
 };
