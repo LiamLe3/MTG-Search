@@ -41,21 +41,24 @@ export default function CardInfo({data}) {
     return result;
   }
   
-  const legality = getLegality();
+  function renderText(oracleText) {
+    const lines = oracleText.split('\n').map((line, index) => (
+      <p key={index} className="card-text">{replaceSymbols(line)}</p>
+    ));
+
+    return lines;
+  }
   
   return (
     <section className="card-info">
       <p className="info-block">{data.name} {replaceSymbols(data.mana_cost)}</p>
       <p className="info-block">{data.type_line}</p>
       <div className="info-block">
-        {data.oracle_text.split('\n').map((line) => (
-          <p className="card-text">{line}</p>
-        ))}
+        {renderText(data.oracle_text)}
         <p className="card-flavour">{data.flavor_text}</p>
       </div>
       <p className="info-block">{data.artist}</p>
-      <p className="info-block">{legality} Commander</p>
-      <p><abbr className="symbol symbol-T" title="weee"></abbr></p>
+      <p className="info-block">{getLegality()} Commander</p>
     </section>
   );
 };
