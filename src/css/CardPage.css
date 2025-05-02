@@ -6,4 +6,5 @@ main {
   max-width: 1000px;
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
 }

@@ -5,6 +5,7 @@
   border-right: 2px solid grey;
   border-radius: 5px;
   padding: 10px;
+  max-width: 333px;
 }
 
 .symbol {
