@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/CardInfo.css';
 export default function CardInfo({data}) {
-
+  console.log('—'.charCodeAt(0))
   function getLegality() {
     if(data.legalities.commander === 'banned'){
       return 'BANNED';
@@ -10,16 +10,6 @@ export default function CardInfo({data}) {
     }
     return 'LEGAL';
   }
-  
-  const abilityWords = new Set([
-    "Adamant", "Addendum", "Alliance", "Battalion", "Bloodrush", "Celebration", "Channel", "Chroma", "Cohort",
-    "Constellation", "Converge", "Corrupted", "Council's dilemma", "Coven", "Delirium", "Descend 4", "Descend 8",
-    "Domain", "Eerie", "Eminence", "Enrage", "Fateful hour", "Fathomless Descent", "Ferocious", "Formidable",
-    "Grandeur", "Hellbent", "Heroic", "Imprint", "Inspired", "Join forces", "Kinship", "Landfall", "Lieutenant",
-    "Magecraft", "Metalcraft", "Morbid", "Pack tactics", "Parade!", "Paradox", "Parley", "Radiance", "Raid", "Rally",
-    "Revolt", "Spell mastery", "Strive", "Sweep", "Tempting offer", "Threshold", "Underdog", "Undergrowth", "Valiant",
-    "Will of the council", "Will of the Planeswalkers"
-  ]);
 
   function processCardText(text) {
     const parts = [];
@@ -27,10 +17,8 @@ export default function CardInfo({data}) {
   
     const symbolPattern = /\{(.*?)\}/g;
     const parenPattern = /\(([^)]+)\)/;
-    const hyphenPattern = /— ([^—]+?) —/g;
-    const abilityPattern = new RegExp(`\\b(${[...abilityWords].join("|")})\\b`, "gi");
     const masterPattern = new RegExp(
-      `${symbolPattern.source}|${parenPattern.source}|${hyphenPattern.source}|${abilityPattern.source}`,
+      `${symbolPattern.source}|${parenPattern.source}`,
       "gi"
     );
   
@@ -53,10 +41,6 @@ export default function CardInfo({data}) {
         );
       } else if (match[2]) {
         parts.push(<i key={parts.length}>({match[2]})</i>);
-      } else if (match[3]) {
-        parts.push(<i key={parts.length}>- {match[3]} -</i>);
-      } else if (match[4]) {
-        parts.push(<i key={parts.length}>{match[4]}</i>);
       }
   
       lastIndex = match.index + fullMatch.length;
@@ -101,12 +85,11 @@ export default function CardInfo({data}) {
   
   function renderText(oracleText) {
     const lines = oracleText.split('\n').map((line, index) => (
-      <p key={index} className="card-text">{processCardText("I, II — Heavenly Strike — Tap target creature an opponent controls. Put a stun counter on it. (If a permanent with a stun counter would become untapped, remove one from it instead.)")}</p>
+      <p key={index} className="card-text">{processCardText(line)}</p>
     ));
 
     return lines;
   }
-
   return (
     <section className="card-info">
       <p className="info-block">{data.name} {replaceSymbols(data.mana_cost)}</p>
