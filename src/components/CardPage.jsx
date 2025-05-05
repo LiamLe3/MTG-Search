@@ -3,13 +3,14 @@ import '../css/CardPage.css'
 import Header from './Header';
 import Footer from './Footer';
 import CardImg from './CardImg';
-import CardInfo from'./CardInfo';
+import CardInfo from './CardInfo';
+import CardExtra from './CardExtra';
 export default function CardPage() {
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://api.scryfall.com/cards/named?fuzzy=akawalli-the-seething-tower')
+    fetch('https://api.scryfall.com/cards/named?fuzzy=aarakocra-sneak')
       .then(response => response.json())
       .then(data => {
         setCard(data);
@@ -32,6 +33,7 @@ export default function CardPage() {
         <section className="card-page">
           <CardImg data={card}/>
           <CardInfo data={card}/>
+          <CardExtra data={card}/>
         </section>
       </main>
       <Footer />
