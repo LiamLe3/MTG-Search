@@ -1,19 +1,20 @@
 import '../css/CardExtra.css'
 export default function CardExtra({data}) {
-  console.log(data.all_parts);
+  console.log(data);
 
   function displayRelated() {
     if(!data.all_parts) return;
+    const filterRelated = data.all_parts.filter(part => part.name !== data.name);
 
     return( 
-      <table>
+      <table className="related-info">
         <thead>
           <tr>
             <th>Faces, Tokens, and Other Parts</th>
           </tr>
         </thead>
         <tbody>
-          {data.all_parts.map(part => (
+          {filterRelated.map(part => (
             <tr key={part.id}>
               <td>
                 <a >{part.name}</a>
@@ -26,12 +27,19 @@ export default function CardExtra({data}) {
     );
   };
 
+  function capitaliseFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
   return (
-    <section className="card-extra">
-      <img className="set-symbol" src={`https://svgs.scryfall.io/sets/${data.set}.svg`} alt={`${data.set}`}></img>
-      <p>{data.set_name} ({data.set.toUpperCase()}) - #{data.collector_number}</p>
+    <section className="extra-container">
+      <div className="extra-info">
+        <img className="set-symbol" src={`https://svgs.scryfall.io/sets/${data.set}.svg`} alt={`${data.set}`}></img>
+        <p className="set-name">{data.set_name} ({data.set.toUpperCase()})</p>
+        <p className="set-extra">#{data.collector_number} - {capitaliseFirstLetter(data.rarity)}</p>
+      </div>
       {displayRelated()}
-      <button>View Alt Arts</button>
+      <button className="view-alts-btn">View Alt Arts</button>
     </section>
   );
 };

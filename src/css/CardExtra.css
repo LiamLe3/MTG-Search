@@ -1,0 +1,48 @@
+
+.extra-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  background: black;
+  color: white;
+  padding: 10px;
+}
+
+.set-symbol {
+  width: 24px;
+  height: 24px;
+  grid-row: 1 / span 2;
+  grid-column: 1;
+  align-self: center;
+  justify-self: center;
+  filter: invert(100%) brightness(200%);
+}
+
+.set-name {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.set-extra {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+table, td, th{
+  border: none;
+  border-collapse: collapse;
+}
+
+thead{
+  background: black;
+  color: white;
+}
+
+tbody tr {
+  background: white;
+  border: 1px solid grey;
+}
+
+tbody tr:last-child {
+  border-bottom: 2px solid black;
+}

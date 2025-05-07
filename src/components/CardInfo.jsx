@@ -1,12 +1,14 @@
 import React from 'react';
 import '../css/CardInfo.css';
 export default function CardInfo({data}) {
-  console.log('—'.charCodeAt(0))
   function getLegality() {
     if(data.legalities.commander === 'banned'){
       return 'BANNED';
-    } else if(data.game_changer) {
-      return 'LEGAL/GC';
+    } else if(data.legalities.commander === 'not_legal'){
+      return 'NOT LEGAL'
+    }
+    else if(data.game_changer) {
+      return 'GAME CHANGER';
     }
     return 'LEGAL';
   }
@@ -55,21 +57,22 @@ export default function CardInfo({data}) {
   
   function renderText(oracleText) {
     const lines = oracleText.split('\n').map((line, index) => (
-      <p key={index} className="card-text">{processCardText(line)}</p>
+      <p key={index} className="oracle-text">{processCardText(line)}</p>
     ));
 
     return lines;
   }
+  
   return (
-    <section className="card-info">
+    <section className="info-container">
       <p className="info-block">{data.name} {processCardText(data.mana_cost)}</p>
       <p className="info-block">{data.type_line}</p>
       <div className="info-block">
         {renderText(data.oracle_text)}
-        <i className="card-flavour">{data.flavor_text}</i>
+        <i className="flavour-text">{data.flavor_text}</i>
       </div>
       <p className="info-block">{data.artist}</p>
-      <p className="info-block">{getLegality()} Commander</p>
+      <p className="info-block">Commander {getLegality()}</p>
     </section>
   );
 };
