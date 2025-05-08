@@ -8,12 +8,7 @@ import CardExtra from './CardExtra';
 import CardRules from './CardRules';
 export default function CardPage() {
   const [card, setCard] = useState(null);
-  const [cardLoading, setCardLoading] = useState(true);
   const [rulings, setRulings] = useState([]);
-  const [rulingsLoading, setRulingsLoading] = useState(true);
-
-  const [cardError, setCardError] = useState(null);
-  const [rulingsError, setRulingsError] = useState(null);
 
   async function fetchRulings(rulingsUri) {
     try {
@@ -23,26 +18,19 @@ export default function CardPage() {
       setRulings(data.data);
     } catch (error) {
       console.error('Error fetching rulings: ', error);
-      setRulingsError(error.message);
-    } finally {
-      setRulingsLoading(false);
     }
   }
 
   async function fetchCard() {
     try {
-      const response = await fetch('https://api.scryfall.com/cards/named?fuzzy=aarakocra-sneak');
+      const response = await fetch('https://api.scryfall.com/cards/named?fuzzy=esper-sentinel');
       if(!response.ok) throw new Error('Failed to fetch card');
       const data = await response.json();
       setCard(data);
-      setCardLoading(false);
-
-      fetchRulings(data.rulings_uri);
+      
+      fetchRulings(data.rulings_uri)
     } catch (error) {
       console.error('Error fetching card: ', error);
-      setCardError(error.message);
-      setCardLoading(false);
-      setRulingsLoading(false);
     }
   }
 
@@ -50,11 +38,8 @@ export default function CardPage() {
     fetchCard();
   }, []);
 
-
-  if (cardLoading) return <p>Loading card...</p>;
-  if (cardError) return <p>Error: {cardError}</p>;
-
-  console.log(card);
+  if (!card) return <p>Loading card...</p>;
+  
   return (
     <>
       <Header />
@@ -65,9 +50,7 @@ export default function CardPage() {
           <CardExtra data={card}/>
         </section>
         <section>
-          {rulingsLoading && <p>Loading rulings...</p>}
-          {rulingsError && <p>Error: {rulingsError}</p>}
-          <CardRules data={rulings}/>
+
         </section>
       </main>
       <Footer />

@@ -5,7 +5,7 @@
   border-left: 1px solid grey;
   border-right: 1px solid grey;
   border-radius: 5px;
-  max-width: 333px;
+  max-width: 325px;
   height: 100%;
 }
 
@@ -39,6 +39,8 @@
   width: 16px;
   height: 16px;
   cursor: help;
+  vertical-align: -0.16em;
+  margin: 0 1px;
 }
 
 .symbol-T {

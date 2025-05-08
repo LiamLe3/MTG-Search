@@ -62,7 +62,7 @@ export default function CardInfo({data}) {
 
     return lines;
   }
-  
+
   return (
     <section className="info-container">
       <p className="info-block">{data.name} {processCardText(data.mana_cost)}</p>
@@ -71,7 +71,6 @@ export default function CardInfo({data}) {
         {renderText(data.oracle_text)}
         <i className="flavour-text">{data.flavor_text}</i>
       </div>
-      <p className="info-block">{data.artist}</p>
       <p className="info-block">Commander {getLegality()}</p>
     </section>
   );

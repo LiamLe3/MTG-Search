@@ -17,7 +17,7 @@ export default function CardExtra({data}) {
           {filterRelated.map(part => (
             <tr key={part.id}>
               <td>
-                <a >{part.name}</a>
+                <a>{part.name}</a>
               </td>
             </tr>
           ))}
@@ -34,11 +34,13 @@ export default function CardExtra({data}) {
   return (
     <section className="extra-container">
       <div className="extra-info">
-        <img className="set-symbol" src={`https://svgs.scryfall.io/sets/${data.set}.svg`} alt={`${data.set}`}></img>
+        <img className="set-symbol" src={`https://svgs.scryfall.io/sets/mrd.svg`} alt={`${data.set}`}></img>
         <p className="set-name">{data.set_name} ({data.set.toUpperCase()})</p>
         <p className="set-extra">#{data.collector_number} - {capitaliseFirstLetter(data.rarity)}</p>
       </div>
+      
       {displayRelated()}
+      {data.artist && <p className="artist-name">Illustrated by {data.artist}</p>}
       <button className="view-alts-btn">View Alt Arts</button>
     </section>
   );

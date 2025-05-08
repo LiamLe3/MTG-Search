@@ -1,6 +1,5 @@
 import '../css/CardRules.css'
 export default function CardImg({data}) {
-  console.log(data);
   return (
     <>
       <h2>Notes and Rules Information:</h2>
