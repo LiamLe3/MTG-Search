@@ -1,13 +1,13 @@
 import React from 'react';
 import '../css/CardInfo.css';
 export default function CardInfo({data}) {
+
   function getLegality() {
     if(data.legalities.commander === 'banned'){
       return 'BANNED';
     } else if(data.legalities.commander === 'not_legal'){
       return 'NOT LEGAL'
-    }
-    else if(data.game_changer) {
+    } else if(data.game_changer) {
       return 'GAME CHANGER';
     }
     return 'LEGAL';
@@ -20,8 +20,7 @@ export default function CardInfo({data}) {
     const symbolPattern = /\{(.*?)\}/g;
     const parenPattern = /\(([^)]+)\)/;
     const masterPattern = new RegExp(
-      `${symbolPattern.source}|${parenPattern.source}`,
-      "gi"
+      `${symbolPattern.source}|${parenPattern.source}`, "gi"
     );
   
     let match;
@@ -63,15 +62,50 @@ export default function CardInfo({data}) {
     return lines;
   }
 
+  function babagee(data) {
+    return (
+      <>
+        <p className="info-block">{data.name} {processCardText(data.mana_cost)}</p>
+        <p className="info-block">{data.type_line}</p>
+        <div className="info-block">
+          {renderText(data.oracle_text)}
+          {data.flavor_text && 
+            <i className={`flavour-text ${!data.oracle_text ? 'no-oracle' : ''}`}>
+              {data.flavor_text}
+            </i>
+          }
+        </div>
+        {data.power && data.toughness && <p className="info-block">{data.power}/{data.toughness}</p>}
+        {data.loyalty && <p className="info-block">Loyalty: {data.loyalty}</p>}
+      </>
+    );
+  }
+
+  function displayInfo() {
+    if(data.card_faces){
+      return (
+        <section className="info-container">
+          {data.card_faces.map((face, index) => (
+            <React.Fragment key={index}>
+              {babagee(face)}
+            </React.Fragment>
+          ))}
+          <p className="info-block">Commander {getLegality()}</p>
+        </section>
+      );
+    }
+
+    return (
+      <section className="info-container">
+        {babagee(data)}
+        <p className="info-block">Commander {getLegality()}</p>
+      </section>
+    );
+  }
+
   return (
-    <section className="info-container">
-      <p className="info-block">{data.name} {processCardText(data.mana_cost)}</p>
-      <p className="info-block">{data.type_line}</p>
-      <div className="info-block">
-        {renderText(data.oracle_text)}
-        <i className="flavour-text">{data.flavor_text}</i>
-      </div>
-      <p className="info-block">Commander {getLegality()}</p>
-    </section>
+    <>
+      {displayInfo()}
+    </>
   );
 };

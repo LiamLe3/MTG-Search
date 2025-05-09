@@ -1,6 +1,6 @@
+
 import '../css/CardExtra.css'
 export default function CardExtra({data}) {
-  console.log(data);
 
   function displayRelated() {
     if(!data.all_parts) return;
@@ -34,7 +34,7 @@ export default function CardExtra({data}) {
   return (
     <section className="extra-container">
       <div className="extra-info">
-        <img className="set-symbol" src={`https://svgs.scryfall.io/sets/mrd.svg`} alt={`${data.set}`}></img>
+        <img className="set-symbol" src={data.symbolUri} alt={`${data.set}`}></img>
         <p className="set-name">{data.set_name} ({data.set.toUpperCase()})</p>
         <p className="set-extra">#{data.collector_number} - {capitaliseFirstLetter(data.rarity)}</p>
       </div>

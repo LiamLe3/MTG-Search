@@ -13,9 +13,6 @@ export default function Header() {
             <span>Advanced</span>
           </a>
           <a className="header-link" href="">
-            <span>Syntax</span>
-          </a>
-          <a className="header-link" href="">
             <span>Sets</span>
           </a>
           <a className="header-link" href="">
