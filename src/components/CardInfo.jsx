@@ -13,7 +13,7 @@ export default function CardInfo({data}) {
     return 'LEGAL';
   }
 
-  function processCardText(text) {
+  function renderCardText(text) {
     const parts = [];
     let lastIndex = 0;
   
@@ -54,21 +54,21 @@ export default function CardInfo({data}) {
     return parts;
   }
   
-  function renderText(oracleText) {
+  function splitLines(oracleText) {
     const lines = oracleText.split('\n').map((line, index) => (
-      <p key={index} className="oracle-text">{processCardText(line)}</p>
+      <p key={index} className="oracle-text">{renderCardText(line)}</p>
     ));
 
     return lines;
   }
 
-  function babagee(data) {
+  function renderCardInfo(data) {
     return (
       <>
-        <p className="info-block">{data.name} {processCardText(data.mana_cost)}</p>
+        <p className="info-block">{data.name} {renderCardText(data.mana_cost)}</p>
         <p className="info-block">{data.type_line}</p>
         <div className="info-block">
-          {renderText(data.oracle_text)}
+          {splitLines(data.oracle_text)}
           {data.flavor_text && 
             <i className={`flavour-text ${!data.oracle_text ? 'no-oracle' : ''}`}>
               {data.flavor_text}
@@ -87,7 +87,7 @@ export default function CardInfo({data}) {
         <section className="info-container">
           {data.card_faces.map((face, index) => (
             <React.Fragment key={index}>
-              {babagee(face)}
+              {renderCardInfo(face)}
             </React.Fragment>
           ))}
           <p className="info-block">Commander {getLegality()}</p>
@@ -97,7 +97,7 @@ export default function CardInfo({data}) {
 
     return (
       <section className="info-container">
-        {babagee(data)}
+        {renderCardInfo(data)}
         <p className="info-block">Commander {getLegality()}</p>
       </section>
     );

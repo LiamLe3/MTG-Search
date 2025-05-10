@@ -5,42 +5,82 @@ export default function CardImg({data}) {
   const [isTransformed, setIsTransformed] = useState(false);
   const [rotation, setRotation] = useState(0);
 
-  function flipCard() {
+  function handleFlip() {
     setIsFlipped(!isFlipped);
   }
 
+  function handleTransform() {
+    setIsTransformed(!isTransformed);
+  }
+
   function meldCard() {
-    
+    const backId = data.card_back_id;
+    const backString = `https://backs.scryfall.io/png/${backId[0]}/${backId[1]}/${backId}.png`;
+
+    const meldResult = data.all_parts.some((part) => {
+      return part.component === 'meld_result' && part.name === data.name
+    });
+
+    return (
+      <>
+        <div className={`card ${isTransformed ? 'transform' : ''}`}>
+          <img className="front" src={data.image_uris.png} alt={data.name} />
+          {!meldResult && <img className="back" src={backString} alt={`Card back of ${data.name}`} />}
+        </div>
+        {!meldResult && <button onClick={handleTransform}>View Back</button>}
+      </>
+    );
   }
 
   function splitCard() {
     return (
-      <img className="card-img split" src={data.image_uris.png} alt={data.name} />
+      <>
+        <img className="card-img split" src={data.image_uris.png} alt={data.name} />
+        <button>Rotate Left</button>
+        <button>Rotate Right</button>
+      </>
+      
     );
   }
 
   function normalCard() {
     return (
-      <img className="card-img normal" src={`https://cards.scryfall.io/card_back/130c9fd0-22e2-434a-afc9-0890ce7b368c.jpg`} alt={data.name} />
+      <img className="card-img normal" src={data.image_uris.png} alt={data.name} />
     );
   }
 
   function flipCard() {
     return (
-      <img className="card-img flip" src={data.image_uris.png} alt={data.name} />
-    );
-  }
-  function transformCard() {
-    return (
       <>
-
-        <button>Transform</button>
+        <img className="card-img flip" src={data.image_uris.png} alt={data.name} />
+        <button>Flip</button>
       </>
     );
   }
+
+  function transformCard() {
+    return (
+      <>
+        <div className={`card ${isTransformed ? 'transform' : ''}`}>
+          <img className="front" src={data.card_faces[0].image_uris.png} alt={data.card_faces[0].name} />
+          <img className="back" src={data.card_faces[1].image_uris.png} alt={data.card_faces[1].name} />
+        </div>
+        <button onClick={handleTransform}>View Back</button>
+      </>
+    );
+  }
+
+  function blah() {
+    if(data.layout === 'split') return splitCard();
+    else if(data.layout === 'flip') return flipCard();
+    else if(['transform', 'modal_dfc', 'double_faced_token', 'reversible_card'].includes(data.layout))
+      return transformCard();
+    else if(data.layout === 'meld') return meldCard();
+    else return normalCard();
+  }
   return (
     <div className="img-container">
-      {splitCard()}
+      {blah()}
     </div>
   );
 };

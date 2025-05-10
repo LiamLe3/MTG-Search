@@ -1,7 +1,39 @@
 .img-container {
   max-width: 325px;
+  position: relative;
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  width: 325px;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+
+.front {
+  position: absolute;
+  height: auto;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.back {
+  position: absolute;
+  height: auto;
+  width: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.card.transform {
+  transform: rotateY(180deg);
 }
 
 .card-img {
   width: 100%;
+}
+
+button {
+  translate: 50%;
 }
