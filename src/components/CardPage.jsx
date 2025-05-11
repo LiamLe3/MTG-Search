@@ -23,7 +23,7 @@ export default function CardPage() {
 
   async function fetchCard() {
     try {
-      const cardResponse = await fetch('https://api.scryfall.com/cards/named?fuzzy=brisela');
+      const cardResponse = await fetch('https://api.scryfall.com/cards/named?fuzzy=akki-lavarunner');
       if(!cardResponse.ok) throw new Error('Failed to fetch card');
       const cardData = await cardResponse.json();
       console.log(cardData);

@@ -52,8 +52,10 @@ export default function CardImg({data}) {
   function flipCard() {
     return (
       <>
-        <img className="card-img flip" src={data.image_uris.png} alt={data.name} />
-        <button>Flip</button>
+        <div className={`card ${isFlipped ? 'flip' : ''}`}>
+          <img className="card-img" src={data.image_uris.png} alt={data.name} />
+        </div>
+        <button onClick={handleFlip}>Flip</button>
       </>
     );
   }
