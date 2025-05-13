@@ -1,9 +1,13 @@
 
+import React from 'react';
 import '../css/CardExtra.css'
 export default function CardExtra({data}) {
 
+  /** Displays all related cards if any */
   function displayRelated() {
     if(!data.all_parts) return;
+
+    // Removes itself from list of related cards
     const filterRelated = data.all_parts.filter(part => part.name !== data.name);
 
     return( 
@@ -27,8 +31,23 @@ export default function CardExtra({data}) {
     );
   };
 
+  /** Capitaise first letter */
   function capitaliseFirstLetter(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+
+  /** Renders artists links, if there only one artist display only one otherwise display both artists */
+  function renderArtistLinks(artists) {
+    return artists.split('&').map((name, index) => {
+      const trimmedName = name.trim();
+
+      return (
+        <React.Fragment key={index}>
+          {index > 0 && ' & '}
+          <a className="artistLinks">{trimmedName}</a>
+        </React.Fragment>
+      );
+    });
   }
 
   return (
@@ -40,7 +59,7 @@ export default function CardExtra({data}) {
       </div>
       
       {displayRelated()}
-      {data.artist && <p className="artist-name">Illustrated by {data.artist}</p>}
+      {data.artist && <p className="artist-name">Art by {renderArtistLinks(data.artist)}</p>}
       <button className="view-alts-btn">View Alt Arts</button>
     </section>
   );

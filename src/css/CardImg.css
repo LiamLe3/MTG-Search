@@ -49,6 +49,29 @@
   position: absolute;
 }
 
-button {
+.card-img.front.meld-result {
+  position: relative;
+}
+
+.img-container button {
+  display: flex;
   margin-top: 10px;
+  background: rgb(241, 241, 241);
+  border: 1px solid rgb(85, 26, 139, 0.5);
+  border-radius: 2px;
+  padding: 5px 10px;
+  fill: rgb(85, 26, 139);
+  color: rgb(85, 26, 139);
+}
+
+.img-container button svg {
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+
+.img-container button:hover {
+  border: 1px solid rgb(85, 26, 139);
+  background: white;
+  cursor: pointer;
 }

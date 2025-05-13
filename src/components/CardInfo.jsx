@@ -1,18 +1,10 @@
 import React from 'react';
+import SYMBOL_DESCRIPTIONS from './CardInfoConstants.js';
 import '../css/CardInfo.css';
+import '../css/Symbols.css';
 export default function CardInfo({data}) {
 
-  function getLegality() {
-    if(data.legalities.commander === 'banned'){
-      return 'BANNED';
-    } else if(data.legalities.commander === 'not_legal'){
-      return 'NOT LEGAL'
-    } else if(data.game_changer) {
-      return 'GAME CHANGER';
-    }
-    return 'LEGAL';
-  }
-
+  /** Finds and replaces symbols and italicises text in parenthesis */
   function renderCardText(text) {
     const parts = [];
     let lastIndex = 0;
@@ -25,28 +17,33 @@ export default function CardInfo({data}) {
   
     let match;
     while ((match = masterPattern.exec(text)) !== null) {
+
+      // Adds any text before each match
       if (match.index > lastIndex) {
         parts.push(text.slice(lastIndex, match.index));
       }
   
       const [fullMatch] = match;
   
-      if (match[1]) {
-        const symbol = match[1];
+      if (match[1]) { // Replace text with symbols e.g. {G} {1}
+        const symbol = match[1].replace(/\//g, ''); // 'replaces '/' in symbol e.g. {G/W}
         parts.push(
           <abbr
             key={parts.length}
             className={`symbol symbol-${symbol}`}
-            title={symbol}
+            title={SYMBOL_DESCRIPTIONS[symbol]}
           />
         );
-      } else if (match[2]) {
-        parts.push(<i key={parts.length}>({match[2]})</i>);
+
+      } else if (match[2]) { // Italicise parenthesis
+        //Recursively call renderCardText to handle nested symbols inside parenthesis
+        parts.push(<i key={parts.length}>({renderCardText(match[2])})</i>);
       }
   
       lastIndex = match.index + fullMatch.length;
     }
-  
+    
+    // Add any text remaining after last match
     if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex));
     }
@@ -54,7 +51,8 @@ export default function CardInfo({data}) {
     return parts;
   }
   
-  function splitLines(oracleText) {
+  /** Renders oracle text, splits them by \n into <p> */
+  function renderOracleText(oracleText) {
     const lines = oracleText.split('\n').map((line, index) => (
       <p key={index} className="oracle-text">{renderCardText(line)}</p>
     ));
@@ -62,18 +60,29 @@ export default function CardInfo({data}) {
     return lines;
   }
 
-  function renderCardInfo(data) {
+  /** Renders the flavour text, adds breaks to replace \n */
+  function renderFlavourText(){
+    return (
+      <i className={`flavour-text ${!data.oracle_text ? 'no-oracle' : ''}`}>
+        {data.flavor_text.split('\n').map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            <br />
+          </React.Fragment>
+        ))}
+      </i>
+    );
+  }
+
+  /** Renders the card information, stats, and text */
+  function renderInfo(data) {
     return (
       <>
         <p className="info-block">{data.name} {renderCardText(data.mana_cost)}</p>
         <p className="info-block">{data.type_line}</p>
         <div className="info-block">
-          {splitLines(data.oracle_text)}
-          {data.flavor_text && 
-            <i className={`flavour-text ${!data.oracle_text ? 'no-oracle' : ''}`}>
-              {data.flavor_text}
-            </i>
-          }
+          {data.oracle_text && renderOracleText(data.oracle_text)}
+          {data.flavor_text && renderFlavourText()}
         </div>
         {data.power && data.toughness && <p className="info-block">{data.power}/{data.toughness}</p>}
         {data.loyalty && <p className="info-block">Loyalty: {data.loyalty}</p>}
@@ -81,31 +90,41 @@ export default function CardInfo({data}) {
     );
   }
 
+  /** Displays the correct layout for multi-modal or modal cards */
   function displayInfo() {
     if(data.card_faces){
       return (
-        <section className="info-container">
+        <>
           {data.card_faces.map((face, index) => (
             <React.Fragment key={index}>
-              {renderCardInfo(face)}
+              {renderInfo(face)}
             </React.Fragment>
           ))}
-          <p className="info-block">Commander {getLegality()}</p>
-        </section>
+        </>
       );
     }
 
-    return (
-      <section className="info-container">
-        {renderCardInfo(data)}
-        <p className="info-block">Commander {getLegality()}</p>
-      </section>
-    );
+    return renderInfo(data);
+  }
+
+  /** Displays the legality of the card */
+  function displayLegality() {
+    if(data.legalities.commander === 'banned'){
+      return <p className="info-block legality">Commander <span className="banned">BANNED</span></p>;
+    } else if(data.legalities.commander === 'not_legal'){
+      return <p className="info-block legality">Commander <span className="not-legal">NOT LEGAL</span></p>;
+    } else if(data.game_changer) {
+      return <p className="info-block legality">Commander <span className="game-changer">LEGAL/GC</span></p>;
+    }
+    return <p className="info-block legality">Commander <span className="legal">LEGAL</span></p>;;
   }
 
   return (
     <>
-      {displayInfo()}
+      <section className="info-container">
+        {displayInfo()}
+        {displayLegality()}
+      </section>
     </>
   );
 };

@@ -13,6 +13,12 @@
   padding: 10px;
   margin-bottom: 10px;
   width: 100%;
+  border-radius: 2px;
+}
+
+.extra-info:hover {
+  background: #464258;
+  cursor: pointer;
 }
 
 .set-symbol {
@@ -36,40 +42,71 @@
   grid-column: 2;
 }
 
-table, td, th{
-  border: none;
-  border-collapse: collapse;
+
+.related-info{
   width: 100%;
-  text-align: start;
-  padding: 5px;
+  border-collapse: collapse;
 }
 
-thead{
+.related-info thead{
   background: #343142;
+  border: 1px solid #343142;
   color: white;
 }
 
-tbody tr {
-  background: white;
-  border: 1px solid grey;
+.related-info thead th {
+  text-align: start;
+  padding: 5px 10px;
 }
 
-tbody tr:hover {
-  background: lightblue;
+.related-info tbody tr td{
+  background: white;
+  border: 1px solid rgb(180, 180, 180);
+  padding: 5px 10px;
 }
-tbody tr:last-child {
+
+.related-info tbody tr td:hover {
+  background: #decdfb;
+  cursor: pointer;
+}
+
+.related-info tbody tr:last-child {
   border-bottom: 4px solid #343142;
 }
+
 
 .artist-name {
   background: #343142;
   width: 100%;
   color: white;
   margin-top: 10px;
-  padding: 10px;
+  padding: 15px;
+  border-radius: 2px;
 }
 
-.view-alts-btn {
-  margin-top: 10px;
+.artistLinks {
+  text-decoration: none;
+  color: #ac88e4;
+}
+
+.artistLinks:hover {
+  color: #ceafff;
+  cursor: pointer;
+}
+
+
+.extra-container button {
+  background: #634496;
+  border: none;
+  border-radius: 2px;
+  color: white;
   width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.extra-container button:hover {
+  background: #7b51bf;
+  cursor: pointer;
 }

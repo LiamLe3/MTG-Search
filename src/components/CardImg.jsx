@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import '../css/CardImg.css'
+
+import RightRotateIcon from '../assets/RightRotateIcon';
+import LeftRotateIcon from '../assets/LeftRotateIcon';
+import TurnOverIcon from '../assets/TurnOverIcon';
+
 export default function CardImg({data}) {
   const [isRotated, setIsRotated] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -27,7 +32,10 @@ export default function CardImg({data}) {
         <div className={`card ${isRotated ? 'rotate' : ''} ${hasAftermath ? 'left' : 'right'}`}>
           <img className="card-img split" src={data.image_uris.png} alt={data.name} />
         </div>
-        <button onClick={handleRotate}>Rotate</button>
+        <button onClick={handleRotate}>
+          {hasAftermath ? <LeftRotateIcon /> : <RightRotateIcon />}
+          <b>Rotate</b>
+        </button>
       </>
     );
   }
@@ -44,7 +52,10 @@ export default function CardImg({data}) {
         <div className={`card ${isFlipped ? 'flip' : ''}`}>
           <img className="card-img" src={data.image_uris.png} alt={data.name} />
         </div>
-        <button onClick={handleFlip}>Flip</button>
+        <button onClick={handleFlip}>
+          <RightRotateIcon />
+          <b>Flip</b>
+        </button>
       </>
     );
   }
@@ -63,7 +74,10 @@ export default function CardImg({data}) {
           <img className="card-img front" src={front.image_uris.png} alt={front.name} />
           <img className="card-img back" src={back.image_uris.png} alt={back.name} />
         </div>
-        <button onClick={handleTransform}>View Back</button>
+        <button onClick={handleTransform}>
+          <TurnOverIcon />
+          <b>Turn Over</b>
+        </button>
       </>
     );
   }
@@ -84,10 +98,15 @@ export default function CardImg({data}) {
     return (
       <>
         <div className={`card ${isTransformed ? 'transform' : ''}`}>
-          <img className="card-img front" src={data.image_uris.png} alt={data.name} />
+          <img className={`card-img front ${isMeldResult ? 'meld-result' : ''}`} src={data.image_uris.png} alt={data.name} />
           {!isMeldResult && <img className="card-img back" src={backImg} alt={`Card back of ${data.name}`} />}
         </div>
-        {!isMeldResult && <button onClick={handleTransform}>View Back</button>}
+        {!isMeldResult &&
+          <button onClick={handleTransform}>
+            <TurnOverIcon />
+            <b>Turn Over</b>
+          </button>
+        }
       </>
     );
   }

@@ -11,9 +11,6 @@ export default function Footer() {
               <a className="footer-link" href="">Advanced Search</a>
             </li>
             <li>
-              <a className="footer-link" href="">Search Guide</a>
-            </li>
-            <li>
               <a className="footer-link" href="">All Sets</a>
             </li>
             <li>

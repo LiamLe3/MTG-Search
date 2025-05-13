@@ -1,0 +1,237 @@
+.symbol {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  cursor: help;
+  vertical-align: -0.16em;
+  margin: 0 1px;
+}
+
+.symbol-T {
+  background-image: url('https://svgs.scryfall.io/card-symbols/T.svg');
+}
+.symbol-Q {
+  background-image: url('https://svgs.scryfall.io/card-symbols/Q.svg');
+}
+.symbol-E {
+  background-image: url('https://svgs.scryfall.io/card-symbols/E.svg');
+}
+.symbol-P {
+  background-image: url('https://svgs.scryfall.io/card-symbols/P.svg');
+}
+.symbol-CHAOS {
+  background-image: url('https://svgs.scryfall.io/card-symbols/CHAOS.svg');
+}
+.symbol-A {
+  background-image: url('https://svgs.scryfall.io/card-symbols/A.svg');
+}
+.symbol-TK {
+  background-image: url('https://svgs.scryfall.io/card-symbols/TK.svg');
+}
+.symbol-X {
+  background-image: url('https://svgs.scryfall.io/card-symbols/X.svg');
+}
+.symbol-Y {
+  background-image: url('https://svgs.scryfall.io/card-symbols/Y.svg');
+}
+.symbol-Z {
+  background-image: url('https://svgs.scryfall.io/card-symbols/Z.svg');
+}
+.symbol-0 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/0.svg');
+}
+.symbol-1 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/1.svg');
+}
+.symbol-2 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/2.svg');
+}
+.symbol-3 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/3.svg');
+}
+.symbol-4 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/4.svg');
+}
+.symbol-5 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/5.svg');
+}
+.symbol-6 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/6.svg');
+}
+.symbol-7 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/7.svg');
+}
+.symbol-8 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/8.svg');
+}
+.symbol-9 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/9.svg');
+}
+.symbol-10 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/10.svg');
+}
+.symbol-11 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/11.svg');
+}
+.symbol-12 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/12.svg');
+}
+.symbol-13 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/13.svg');
+}
+.symbol-14 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/14.svg');
+}
+.symbol-15 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/15.svg');
+}
+.symbol-16 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/16.svg');
+}
+.symbol-17 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/17.svg');
+}
+.symbol-18 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/18.svg');
+}
+.symbol-19 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/19.svg');
+}
+.symbol-20 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/20.svg');
+}
+.symbol-100 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/100.svg');
+}
+.symbol-1000000 {
+  background-image: url('https://svgs.scryfall.io/card-symbols/100000000.svg');
+}
+.symbol-WU {
+  background-image: url('https://svgs.scryfall.io/card-symbols/WU.svg');
+}
+.symbol-WB {
+  background-image: url('https://svgs.scryfall.io/card-symbols/WB.svg');
+}
+.symbol-BR {
+  background-image: url('https://svgs.scryfall.io/card-symbols/BR.svg');
+}
+.symbol-BG {
+  background-image: url('https://svgs.scryfall.io/card-symbols/BG.svg');
+}
+.symbol-UB {
+  background-image: url('https://svgs.scryfall.io/card-symbols/UB.svg');
+}
+.symbol-UR {
+  background-image: url('https://svgs.scryfall.io/card-symbols/UR.svg');
+}
+.symbol-RG {
+  background-image: url('https://svgs.scryfall.io/card-symbols/RG.svg');
+}
+.symbol-RW {
+  background-image: url('https://svgs.scryfall.io/card-symbols/RW.svg');
+}
+.symbol-GW {
+  background-image: url('https://svgs.scryfall.io/card-symbols/GW.svg');
+}
+.symbol-GU {
+  background-image: url('https://svgs.scryfall.io/card-symbols/GU.svg');
+}
+.symbol-BGP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/BGP.svg');
+}
+.symbol-BRP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/BRP.svg');
+}
+.symbol-GUP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/GUP.svg');
+}
+.symbol-GWP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/GWP.svg');
+}
+.symbol-RGP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/RGP.svg');
+}
+.symbol-RWP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/RWP.svg');
+}
+.symbol-UBP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/UBP.svg');
+}
+.symbol-URP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/URP.svg');
+}
+.symbol-WBP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/WBP.svg');
+}
+.symbol-WUP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/WUP.svg');
+}
+.symbol-CW {
+  background-image: url('https://svgs.scryfall.io/card-symbols/CW.svg');
+}
+.symbol-CU {
+  background-image: url('https://svgs.scryfall.io/card-symbols/CU.svg');
+}
+.symbol-CB {
+  background-image: url('https://svgs.scryfall.io/card-symbols/CB.svg');
+}
+.symbol-CR {
+  background-image: url('https://svgs.scryfall.io/card-symbols/CR.svg');
+}
+.symbol-CG {
+  background-image: url('https://svgs.scryfall.io/card-symbols/CG.svg');
+}
+.symbol-2W {
+  background-image: url('https://svgs.scryfall.io/card-symbols/2W.svg');
+}
+.symbol-2U {
+  background-image: url('https://svgs.scryfall.io/card-symbols/2U.svg');
+}
+.symbol-2B {
+  background-image: url('https://svgs.scryfall.io/card-symbols/2B.svg');
+}
+.symbol-2R {
+  background-image: url('https://svgs.scryfall.io/card-symbols/2R.svg');
+}
+.symbol-2G {
+  background-image: url('https://svgs.scryfall.io/card-symbols/2G.svg');
+}
+.symbol-H {
+  background-image: url('https://svgs.scryfall.io/card-symbols/H.svg');
+}
+.symbol-WP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/WP.svg');
+}
+.symbol-UP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/UP.svg');
+}
+.symbol-BP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/BP.svg');
+}
+.symbol-RP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/RP.svg');
+}
+.symbol-GP {
+  background-image: url('https://svgs.scryfall.io/card-symbols/GP.svg');
+}
+.symbol-W {
+  background-image: url('https://svgs.scryfall.io/card-symbols/W.svg');
+}
+.symbol-U {
+  background-image: url('https://svgs.scryfall.io/card-symbols/U.svg');
+}
+.symbol-B {
+  background-image: url('https://svgs.scryfall.io/card-symbols/B.svg');
+}
+.symbol-R {
+  background-image: url('https://svgs.scryfall.io/card-symbols/R.svg');
+}
+.symbol-G {
+  background-image: url('https://svgs.scryfall.io/card-symbols/G.svg');
+}
+.symbol-C {
+  background-image: url('https://svgs.scryfall.io/card-symbols/C.svg');
+}
+.symbol-S {
+  background-image: url('https://svgs.scryfall.io/card-symbols/S.svg');
+}

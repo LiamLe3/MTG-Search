@@ -6,10 +6,12 @@ import CardImg from './CardImg';
 import CardInfo from './CardInfo';
 import CardExtra from './CardExtra';
 import CardRules from './CardRules';
+
 export default function CardPage() {
   const [card, setCard] = useState(null);
   const [rulings, setRulings] = useState([]);
 
+  /** Fetches the rulings of the card */
   async function fetchRulings(rulingsUri) {
     try {
       const response = await fetch(rulingsUri);
@@ -21,12 +23,13 @@ export default function CardPage() {
     }
   }
 
+  /** Fetches the card then fetches the set icon*/
   async function fetchCard() {
     try {
-      const cardResponse = await fetch('https://api.scryfall.com/cards/named?fuzzy=gisela-broken-blade');
+      const cardResponse = await fetch('https://api.scryfall.com/cards/named?fuzzy=jeskas-will');
       if(!cardResponse.ok) throw new Error('Failed to fetch card');
       const cardData = await cardResponse.json();
-      console.log(cardData);
+
       const setResponse = await fetch(`https://api.scryfall.com/sets/${cardData.set}`)
       const setData = await setResponse.json();
 
@@ -53,9 +56,8 @@ export default function CardPage() {
           <CardInfo data={card}/>
           <CardExtra data={card}/>
         </section>
-        <section>
-
-        </section>
+        
+        <CardRules data={rulings}/>
       </main>
       <Footer />
     </>
