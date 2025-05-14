@@ -4,12 +4,6 @@ import Footer from './Footer';
 export default function SearchPage() {
   return (
     <>
-      <Header />
-      <main>
-        <section className="search-page">
-        </section>
-      </main>
-      <Footer />
     </>
   );
 };

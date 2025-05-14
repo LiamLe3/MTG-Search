@@ -1,0 +1,57 @@
+.set-page {
+  max-width: 1000px;
+  width: 100%;
+  height: 100%;
+}
+
+.set-table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.set-table thead tr,
+.set-table tbody tr {
+  border-bottom: 1px solid black;
+}
+
+.set-table th,
+.set-table td {
+  text-align: start;
+  padding: 5px 10px;
+}
+
+.set-name {
+  display: flex;
+  align-items: center;
+}
+
+.set-table tbody tr:nth-child(2n) {
+  background: rgb(231, 231, 231);
+}
+
+.set-table tbody tr:hover {
+  background: pink;
+}
+
+.set-table tbody tr th {
+  padding: 5px;
+}
+
+.set-symbol {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.set-code {
+  margin-left: 10px;
+  color: #7c7c7c;
+}
+.indent {
+  margin: 0 5px 0 10px;
+}
+
+.indent-more {
+  margin: 0 5px 0 40px;
+}
