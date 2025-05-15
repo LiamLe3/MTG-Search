@@ -26,7 +26,7 @@ export default function CardPage() {
   /** Fetches the card then fetches the set icon*/
   async function fetchCard() {
     try {
-      const cardResponse = await fetch('https://api.scryfall.com/cards/named?fuzzy=jeskas-will');
+      const cardResponse = await fetch('https://api.scryfall.com/cards/named?fuzzy=summon-shiva');
       if(!cardResponse.ok) throw new Error('Failed to fetch card');
       const cardData = await cardResponse.json();
 
@@ -34,7 +34,7 @@ export default function CardPage() {
       const setData = await setResponse.json();
 
       setCard({...cardData, symbolUri: setData.icon_svg_uri});
-
+      
       fetchRulings(cardData.rulings_uri)
     } catch (error) {
       console.error('Error fetching card: ', error);
