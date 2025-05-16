@@ -2,6 +2,9 @@ import '../css/CardRules.css'
 import '../css/Symbols.css';
 import SYMBOL_DESCRIPTIONS from './CardInfoConstants';'./CardInfoConstants.js'
 export default function CardImg({data}) {
+  const mid = Math.ceil(data.length / 2);
+  const leftList = data.slice(0, mid);
+  const rightList = data.slice(mid);
 
   /**  Finds and replaces text that should be replaced with symbols e.g. {G} {1} */
   function renderSymbols(text) {
@@ -39,38 +42,29 @@ export default function CardImg({data}) {
     return parts;
   }
 
-  /** Renders the rulings into two columns*/
-  function renderRulings() {
-    const mid = Math.ceil(data.length / 2);
-    const leftList = data.slice(0, mid);
-    const rightList = data.slice(mid);
-
-    return (
-      <div className="rulings-background">
-        <section className="rules-container">
-          <h2>Notes and Rules Information:</h2>
-          <div className="rulings">
-            <ul className="left-list">
-              {leftList.map((ruling, index) => (
-                <li key={index}>
-                  {renderSymbols(ruling.comment)}
-                  <i>({ruling.published_at})</i>
-                </li>
-              ))}
-            </ul>
-            <ul className="right-list">
-              {rightList.map((ruling, index) => (
-                <li key={index}>
-                  {renderSymbols(ruling.comment)}
+  return (
+    <div className="rulings-background">
+      <section className="rules-container">
+        <h2>Notes and Rules Information:</h2>
+        <div className="rulings">
+          <ul className="left-list">
+            {leftList.map((ruling, index) => (
+              <li key={index}>
+                {renderSymbols(ruling.comment)}
                 <i>({ruling.published_at})</i>
               </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  return data.length ? renderRulings() : null;
+            ))}
+          </ul>
+          <ul className="right-list">
+            {rightList.map((ruling, index) => (
+              <li key={index}>
+                {renderSymbols(ruling.comment)}
+              <i>({ruling.published_at})</i>
+            </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </div>
+  );
 };

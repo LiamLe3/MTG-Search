@@ -17,5 +17,50 @@ main {
   max-width: 1000px;
   width: 100%;
   height: 100%;
+  margin: 30px 0;
 }
 
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1000px;
+  gap: 10px;
+}
+
+.search-nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.prev-btn,
+.next-btn {
+  display: flex;
+  background: rgb(241, 241, 241);
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid rgb(85, 26, 139, 0.5);
+  fill: rgb(85, 26, 139);
+  color: rgb(85, 26, 139);
+  margin: 10px;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  border: 1px solid rgb(85, 26, 139);
+  background: white;
+}
+
+.prev-btn:disabled,
+.next-btn:disabled {
+  border: 1px solid grey;
+  fill: grey;
+  color: grey;
+  background-color: rgb(215, 215, 215);
+}
+
+.prev-btn svg,
+.next-btn svg{
+  width: 15px;
+  height: 15px;
+}

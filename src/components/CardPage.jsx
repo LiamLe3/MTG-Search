@@ -34,7 +34,7 @@ export default function CardPage() {
       const setData = await setResponse.json();
 
       setCard({...cardData, symbolUri: setData.icon_svg_uri});
-      
+
       fetchRulings(cardData.rulings_uri)
     } catch (error) {
       console.error('Error fetching card: ', error);
@@ -57,7 +57,7 @@ export default function CardPage() {
           <CardExtra data={card}/>
         </section>
         
-        <CardRules data={rulings}/>
+        {rulings.length && <CardRules data={rulings}/>}
       </main>
       <Footer />
     </>

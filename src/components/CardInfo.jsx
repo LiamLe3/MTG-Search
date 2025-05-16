@@ -74,22 +74,6 @@ export default function CardInfo({data}) {
     );
   }
 
-  /** Renders the card information, stats, and text */
-  function renderInfo(data) {
-    return (
-      <>
-        <p className="info-block">{data.name} {renderCardText(data.mana_cost)}</p>
-        <p className="info-block">{data.type_line}</p>
-        <div className="info-block">
-          {data.oracle_text && renderOracleText(data.oracle_text)}
-          {data.flavor_text && renderFlavourText()}
-        </div>
-        {data.power && data.toughness && <p className="info-block">{data.power}/{data.toughness}</p>}
-        {data.loyalty && <p className="info-block">Loyalty: {data.loyalty}</p>}
-      </>
-    );
-  }
-
   /** Displays the correct layout for multi-modal or modal cards */
   function displayInfo() {
     if(data.card_faces){
@@ -97,7 +81,14 @@ export default function CardInfo({data}) {
         <>
           {data.card_faces.map((face, index) => (
             <React.Fragment key={index}>
-              {renderInfo(face)}
+              <p className="info-block">{face.name} {renderCardText(face.mana_cost)}</p>
+              <p className="info-block">{face.type_line}</p>
+              <div className="info-block">
+                {face.oracle_text && renderOracleText(face.oracle_text)}
+                {face.flavor_text && renderFlavourText()}
+              </div>
+              {face.power && face.toughness && <p className="info-block">{face.power}/{face.toughness}</p>}
+              {face.loyalty && <p className="info-block">Loyalty: {face.loyalty}</p>}
             </React.Fragment>
           ))}
         </>
