@@ -8,24 +8,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 10px;
+    padding: 3px 10px;
     margin: 6px 0 0 6px;
+    font-size: 18px;
+    color: white;
     border: 2px solid #544256;
     border-radius: 3px; 
-    flex-wrap: wrap;
     background-color: #3e2b41;
     text-decoration: none;
-    color: white;
     cursor: pointer;
-    font-size: 18px;
-    height: 28px;
-    width: fit-content;
-    text-align: center;
 }
 
 .home-link:hover {
-    border: 2px solid #7a617c;
-    background-color: #4c3550;
+    border: 2px solid #6a546c;
+    background-color: #46324a;
 }
 
 .home-link:first-child {

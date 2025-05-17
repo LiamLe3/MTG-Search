@@ -1,5 +1,5 @@
-import '../css/CardRules.css'
-import '../css/Symbols.css';
+import './css/CardRules.css'
+import '../Others/css/Symbols.css';
 import SYMBOL_DESCRIPTIONS from './CardInfoConstants';'./CardInfoConstants.js'
 export default function CardImg({data}) {
   const mid = Math.ceil(data.length / 2);
@@ -30,7 +30,7 @@ export default function CardImg({data}) {
           title={SYMBOL_DESCRIPTIONS[symbol]}
         />
       );
-  
+
       lastIndex = match.index + fullMatch.length;
     }
   

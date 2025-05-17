@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import "../css/PageCard.css"
-import TurnOverIcon from '../assets/TurnOverIcon';
+import "./css/PageCard.css"
+import TurnOverIcon from '../../assets/TurnOverIcon';
 export default function PageCard({data}) {
   const [isTransformed, setIsTransformed] = useState(false);
   

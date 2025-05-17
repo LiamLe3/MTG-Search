@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import '../css/SetPage.css'
-import Header from './Header';
-import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
+import './css/SetPage.css'
+import Header from '../Others/Header';
+import Footer from '../Others/Footer';
 export default function SetPage() {
-  const [roots, setRoots] = useState([]);
-  const [nodeMap, setNodeMap] = useState(null);
+  const [rootSets, setRootSets] = useState([]);
+  const [childSetMap, setChildSetMap] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   async function fetchSets() {
     try {
@@ -12,9 +16,11 @@ export default function SetPage() {
       if(!response.ok) throw new Error('Failed to fetch sets');
       const data = await response.json();
       console.log(data);
-      buildSetTree(data.data);
+      organiseSetHierarchy(data.data);
     } catch (error) {
       console.error('Error fetching rulings: ', error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -29,7 +35,7 @@ export default function SetPage() {
       .join(' ');
   }
 
-  function buildSetTree(data) {
+  function organiseSetHierarchy(data) {
     let roots = [];
     const nodeMap = new Map();
 
@@ -46,14 +52,20 @@ export default function SetPage() {
       }
     });
 
-    setRoots(roots);
-    setNodeMap(nodeMap);
+    setRootSets(roots);
+    setChildSetMap(nodeMap);
   }
 
-  function recursivePrintSets(set, nodeMap, depth = 0) {
+  function renderSetTree(set, nodeMap, depth = 0) {
     const children = nodeMap.get(set.code) || [];
+
+    const onRowClick = () => {
+      navigate(`/`);
+    };
+
     return [
-      <tr key={set.code}>
+      
+      <tr key={set.code} className="table-row" onClick={onRowClick}>
         <td className="set-name">
           {depth > 0 && <span className={`${depth === 1 ? 'indent' : 'indent-more'}`}>↳</span>}
           <img className="set-symbol" src={set.icon_svg_uri} alt={set.code}/>
@@ -64,29 +76,37 @@ export default function SetPage() {
         <td>{set.released_at}</td>
         <td>{formatSetTypeName(set.set_type)}</td>
       </tr>,
-      ...children.flatMap(child => recursivePrintSets(child, nodeMap, depth + 1))
+      ...children.flatMap(child => renderSetTree(child, nodeMap, depth + 1))
     ];
+  }
+
+  if(loading) return <p>Loading...</p>;
+
+  function renderSetPage() {
+    return (
+      <section className="set-page">
+        <table className="set-table">
+          <thead className="table-head">
+            <tr className="table-row">
+              <th>Name</th>
+              <th>Cards</th>
+              <th>Date</th>
+              <th>Set Type</th>
+            </tr>
+          </thead>
+          <tbody className="table-body">
+            {rootSets.flatMap(set => renderSetTree(set, childSetMap))}
+          </tbody>
+        </table>
+      </section>
+    );
   }
 
   return (
     <>
       <Header />
       <main>
-        <section className="set-page">
-          <table className="set-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Cards</th>
-                <th>Date</th>
-                <th>Set Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              {roots.flatMap(set => recursivePrintSets(set, nodeMap))}
-            </tbody>
-          </table>
-        </section>
+        {loading ? <p>Loading page...</p> : renderSetPage()}
       </main>
       <Footer />
     </>

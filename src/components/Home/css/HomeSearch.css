@@ -2,13 +2,21 @@
     display: flex;
     align-items: center;
     position: relative;
-    max-width: 524px;
+    max-width: 525px;
     width: 100%;
 }
 
-.home-search-form .search-bar {
+.home-logo {
+    display: block;
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    margin-left: 8px;
+}
+
+.home-search-bar {
     display: flex;
-    background-color: #242031;
+    background-color: #201c2c;
     padding: 12px 14px 12px 62px;
     border: 2px solid #4f4756;
     border-radius: 5px;
@@ -19,9 +27,10 @@
     caret-color: white;
 }
 
-.home-search-form .search-bar.focused {
-    background-color: #342d48;
-    border: 2px solid #5f5668; 
-    outline:none;
+.home-search-bar.focused {
+    background-color: #231e31;
+    border: 2px solid #5a5163; 
+    outline: none;
     box-shadow: none;
 }
+

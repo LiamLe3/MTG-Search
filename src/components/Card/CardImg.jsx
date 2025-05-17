@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import '../css/CardImg.css'
+import './css/CardImg.css'
 
-import RightRotateIcon from '../assets/RightRotateIcon';
-import LeftRotateIcon from '../assets/LeftRotateIcon';
-import TurnOverIcon from '../assets/TurnOverIcon';
+import RightRotateIcon from '../../assets/RightRotateIcon';
+import LeftRotateIcon from '../../assets/LeftRotateIcon';
+import TurnOverIcon from '../../assets/TurnOverIcon';
 
 export default function CardImg({data}) {
   const [isRotated, setIsRotated] = useState(false);

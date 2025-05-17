@@ -1,6 +1,6 @@
 
 import React from 'react';
-import '../css/CardExtra.css'
+import './css/CardExtra.css'
 export default function CardExtra({data}) {
 
   /** Displays all related cards if any */

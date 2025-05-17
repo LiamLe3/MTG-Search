@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import '../css/SearchPage.css'
-import Header from './Header';
-import Footer from './Footer';
+import './css/SearchPage.css'
+import Header from '../Others/Header';
+import Footer from '../Others/Footer';
 import PageCard from './PageCard';
-import NextIcon from '../assets/NextIcon';
-import PrevIcon from '../assets/PrevIcon';
+import NextIcon from '../../assets/NextIcon';
+import PrevIcon from '../../assets/PrevIcon';
 export default function SearchPage() {
-  const [cardsData, setCardsData] = useState({});
+  const [cardsData, setCardsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCards, setTotalCards] = useState(null);
 
@@ -24,7 +24,7 @@ export default function SearchPage() {
       try {
         const response = await fetch(request);
         const data = await response.json();
-        setCardsData(prev => ({...prev, ...data.data}));
+        setCardsData(prev => [...prev, ...data.data]);
         setNextPageUrl(data.next_page || null);
         setTotalCards(data.total_cards);
       } catch (error) {
@@ -45,7 +45,6 @@ export default function SearchPage() {
       fetchCards(nextPageUrl);
     }
   }, [currentPage]);
-
 
   function nextPage() {
     setCurrentPage(currentPage + 1);

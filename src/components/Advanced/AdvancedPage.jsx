@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import '../css/AdvancedPage.css'
-import Header from './Header';
-import Footer from './Footer';
+import './css/AdvancedPage.css'
+import Header from '../Others/Header';
+import Footer from '../Others/Footer';
 export default function AdvancedPage() {
   async function fetchKeywords() {
     try {

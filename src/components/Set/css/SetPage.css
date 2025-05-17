@@ -1,0 +1,66 @@
+main {
+  background-color: #eeeeee;
+}
+
+.set-page {
+  max-width: 1000px;
+  width: 100%;
+  height: 100%;
+}
+
+.set-table {
+  margin-top: 30px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.set-table th,
+.set-table td {
+  text-align: start;
+  padding: 5px 10px;
+}
+
+.table-row {
+  border-bottom: 1px solid black;
+}
+
+.table-body .table-row {
+  cursor: pointer;
+}
+
+.table-body .table-row:nth-child(2n) {
+  background: rgb(213, 213, 213);
+}
+
+.table-body .table-row:hover {
+  background-color: rgba(255, 174, 0, 0.3);
+}
+
+.indent {
+  margin: 0 5px 0 10px;
+}
+
+.indent-more {
+  margin: 0 5px 0 40px;
+}
+
+.indent, .indent-more {
+  color: #989898;
+}
+
+.set-symbol {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.set-name {
+  display: flex;
+  align-items: center;
+}
+
+.set-code {
+  margin-left: 10px;
+  color: #989898;
+}
+

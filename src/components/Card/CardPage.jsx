@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import '../css/CardPage.css'
-import Header from './Header';
-import Footer from './Footer';
+import './css/CardPage.css'
+import Header from '../Others/Header';
+import Footer from '../Others/Footer';
 import CardImg from './CardImg';
 import CardInfo from './CardInfo';
 import CardExtra from './CardExtra';

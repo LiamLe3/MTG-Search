@@ -1,7 +1,7 @@
 import React from 'react';
 import SYMBOL_DESCRIPTIONS from './CardInfoConstants.js';
-import '../css/CardInfo.css';
-import '../css/Symbols.css';
+import './css/CardInfo.css';
+import '../Others/css/Symbols.css';
 export default function CardInfo({data}) {
 
   /** Finds and replaces symbols and italicises text in parenthesis */

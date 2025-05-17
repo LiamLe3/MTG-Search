@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import '../css/HeaderSearch.css';
+import './css/HeaderSearch.css';
 
 export default function HeaderSearch() {
   const [isFocused, setIsFocused] = useState(false);
