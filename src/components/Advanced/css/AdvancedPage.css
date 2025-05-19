@@ -1,0 +1,11 @@
+.advanced-label {
+  min-width: 180px;
+  background-color: pink;
+}
+
+.advanced-search-form {
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  width: 100%;
+}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './css/SearchPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
@@ -10,13 +11,17 @@ export default function SearchPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCards, setTotalCards] = useState(null);
 
-  const [nextPageUrl, setNextPageUrl] = useState("https://api.scryfall.com/cards/search?q=a");
+  
   const [loading, setLoading] = useState(false);
   const cardsPerPage = 60;
   const lastCardIndex = currentPage * cardsPerPage;
   const firstCardIndex = lastCardIndex - cardsPerPage;
   const currentCards = cardsData.slice(firstCardIndex, lastCardIndex);
   const totalPages = Math.ceil(totalCards / cardsPerPage);
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const searchQuery = searchParams.get('q');
+  const [nextPageUrl, setNextPageUrl] = useState(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
 
   useEffect(() => {
     const fetchCards = async (request) => {
@@ -24,9 +29,11 @@ export default function SearchPage() {
       try {
         const response = await fetch(request);
         const data = await response.json();
+        console.log(data);
         setCardsData(prev => [...prev, ...data.data]);
         setNextPageUrl(data.next_page || null);
         setTotalCards(data.total_cards);
+        setCurrentPage(1);
       } catch (error) {
         console.error("Error fetching Scryfall cards:", error);
       } finally {
@@ -44,7 +51,7 @@ export default function SearchPage() {
     if (needsMore && nextPageUrl) {
       fetchCards(nextPageUrl);
     }
-  }, [currentPage]);
+  }, [searchQuery, currentPage]);
 
   function nextPage() {
     setCurrentPage(currentPage + 1);
@@ -71,7 +78,7 @@ export default function SearchPage() {
         <p>Displaying cards {firstCardIndex + 1} - {lastCardIndex} of {totalCards}</p>
         {renderPageNavigationButtons()}
         <section className="gallery-container">
-          {currentCards.map((card) => (<PageCard key={card.id} data={card} />))}
+          {currentCards.map((card, index) => (<PageCard key={index} data={card} />))}
         </section>
         {renderPageNavigationButtons()}
       </section>

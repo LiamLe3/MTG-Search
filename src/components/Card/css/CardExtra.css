@@ -14,6 +14,7 @@
   margin-bottom: 10px;
   width: 100%;
   border-radius: 2px;
+  text-decoration: none;
 }
 
 .extra-info:hover {
@@ -95,7 +96,8 @@
 }
 
 
-.extra-container button {
+.view-alts-btn {
+  display: block;
   background: #634496;
   border: none;
   border-radius: 2px;
@@ -104,9 +106,10 @@
   padding: 10px;
   margin-top: 10px;
   text-align: center;
+  text-decoration: none;
 }
 
-.extra-container button:hover {
+.view-alts-btn:hover {
   background: #7b51bf;
   cursor: pointer;
 }

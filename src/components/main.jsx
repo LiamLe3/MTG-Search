@@ -15,6 +15,10 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
+    path: '/advanced',
+    element: <AdvancedPage />
+  },
+  {
     path: '/sets',
     element: <SetPage />
   },
@@ -23,7 +27,7 @@ const router = createBrowserRouter([
     element: <SearchPage />,
   },
   {
-    path: '/card',
+    path: '/card/:set/:number',
     element: <CardPage />
   }
 

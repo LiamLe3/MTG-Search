@@ -1,15 +1,16 @@
 
 import React from 'react';
 import './css/CardExtra.css'
+import { Link } from 'react-router-dom';
 export default function CardExtra({data}) {
-
+  console.log(data.name);
   /** Displays all related cards if any */
   function displayRelated() {
     if(!data.all_parts) return;
 
     // Removes itself from list of related cards
     const filterRelated = data.all_parts.filter(part => part.name !== data.name);
-
+    console.log(data);
     return( 
       <table className="related-info">
         <thead>
@@ -44,7 +45,7 @@ export default function CardExtra({data}) {
       return (
         <React.Fragment key={index}>
           {index > 0 && ' & '}
-          <a className="artistLinks">{trimmedName}</a>
+          <Link className="artistLinks" to={`/search?q=a:"${trimmedName}"`}>{trimmedName}</Link>
         </React.Fragment>
       );
     });
@@ -52,15 +53,15 @@ export default function CardExtra({data}) {
 
   return (
     <section className="extra-container">
-      <div className="extra-info">
+      <Link className="extra-info" to={`/search?q=set:${data.set}`}>
         <img className="extra-set-symbol" src={data.symbolUri} alt={`${data.set}`} />
         <p className="extra-set-name">{data.set_name} ({data.set.toUpperCase()})</p>
         <p className="card-extra">#{data.collector_number} - {capitaliseFirstLetter(data.rarity)}</p>
-      </div>
+      </Link>
       
       {displayRelated()}
       {data.artist && <p className="artist-name">Art by {renderArtistLinks(data.artist)}</p>}
-      <button className="view-alts-btn">View Alt Arts</button>
+      <Link className="view-alts-btn" to={`/search?q=!"${data.name}" unique:art`}>View Alt Arts</Link>
     </section>
   );
 };

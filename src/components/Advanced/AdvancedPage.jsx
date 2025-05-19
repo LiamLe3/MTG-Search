@@ -25,19 +25,19 @@ export default function AdvancedPage() {
         <form className="advanced-search-form">
           <div className="advanced-search-container">
             <div className="form-row">
-              <label>Card Name</label>
+              <label className="advanced-label">Card Name</label>
               <input/>
             </div>
             <div className="form-row">
-              <label>Text</label>
+              <label className="advanced-label">Text</label>
               <input/>
             </div>
             <div className="form-row">
-              <label>Type Line</label>
+              <label className="advanced-label">Type Line</label>
               <input/>
             </div>
             <div className="form-row">
-              <label>Colors</label>
+              <label className="advanced-label">Colors</label>
               <div>
                 <fieldset>
                   <div></div>
@@ -45,22 +45,22 @@ export default function AdvancedPage() {
               </div>
             </div>
             <div className="form-row">
-              <label>Mana Cost</label>
+              <label className="advanced-label">Mana Cost</label>
             </div>
             <div className="form-row">
-              <label>Stats</label>
+              <label className="advanced-label">Stats</label>
             </div>
             <div className="form-row">
-              <label>Sets</label>
+              <label className="advanced-label">Sets</label>
             </div>
             <div className="form-row">
-              <label>Rarity</label>
+              <label className="advanced-label">Rarity</label>
             </div>
             <div className="form-row">
-              <label>Artist</label>
+              <label className="advanced-label">Artist</label>
             </div>
             <div className="form-row">
-              <label>Order By</label>
+              <label className="advanced-label">Order By</label>
             </div>
           </div>
         </form>

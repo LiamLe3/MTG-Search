@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './css/CardPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
@@ -8,6 +9,7 @@ import CardExtra from './CardExtra';
 import CardRules from './CardRules';
 
 export default function CardPage() {
+  const { set, number } = useParams();
   const [card, setCard] = useState(null);
   const [rulings, setRulings] = useState([]);
 
@@ -26,7 +28,7 @@ export default function CardPage() {
   /** Fetches the card then fetches the set icon*/
   async function fetchCard() {
     try {
-      const cardResponse = await fetch('https://api.scryfall.com/cards/named?fuzzy=summon-shiva');
+      const cardResponse = await fetch(`https://api.scryfall.com/cards/${set}/${number}`);
       if(!cardResponse.ok) throw new Error('Failed to fetch card');
       const cardData = await cardResponse.json();
 
@@ -57,7 +59,7 @@ export default function CardPage() {
           <CardExtra data={card}/>
         </section>
         
-        {rulings.length && <CardRules data={rulings}/>}
+        {rulings.length > 0 && <CardRules data={rulings}/>}
       </main>
       <Footer />
     </>

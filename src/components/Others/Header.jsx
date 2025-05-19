@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./css/Header.css"
 import HeaderSearch from './HeaderSearch.jsx'
 import Logo from './Logo.jsx';
@@ -9,15 +10,15 @@ export default function Header() {
         <Logo type="header"/>
         <HeaderSearch />
         <div className='header-links'>
-          <a className="header-link" href="">
+          <Link className="header-link" to="/advanced">
             <span>Advanced</span>
-          </a>
-          <a className="header-link" href="">
+          </Link>
+          <Link className="header-link" to="/sets">
             <span>Sets</span>
-          </a>
-          <a className="header-link" href="">
+          </Link>
+          <Link className="header-link" to="/">
             <span>Random</span>
-          </a>
+          </Link>
         </div>
       </nav>
     </header>

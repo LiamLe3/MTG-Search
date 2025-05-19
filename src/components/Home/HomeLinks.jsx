@@ -5,7 +5,6 @@ export default function HomeLinks() {
 	return (
 		<nav className="home-nav">
 			<Link className="home-link" to="/advanced">Advanced Search</Link>
-			<Link className="home-link" to="syntax">Search Guide</Link>
 			<Link className="home-link" to="/sets">All Sets</Link>
 			<Link className="home-link" to="/search?=aaa">Random Card</Link>
 		</nav>

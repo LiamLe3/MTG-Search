@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import "./css/PageCard.css"
 import TurnOverIcon from '../../assets/TurnOverIcon';
 export default function PageCard({data}) {
@@ -16,10 +17,12 @@ export default function PageCard({data}) {
 
     return (
     <div className="gallery-wrapper">
-      <div className={`gallery ${isTransformed ? 'transform' : ''}`}>
-        <img className="gallery-img front" src={front.image_uris.normal} alt={front.name} />
-        <img className="gallery-img back" src={back.image_uris.normal} alt={back.name} />
-      </div>
+      <Link to={`/card/${data.set}/${data.collector_number}`}>
+        <div className={`gallery ${isTransformed ? 'transform' : ''}`}>
+          <img className="gallery-img front" src={front.image_uris.normal} alt={front.name} />
+          <img className="gallery-img back" src={back.image_uris.normal} alt={back.name} />
+        </div>
+      </Link>
       <button className="gallery-btn" onClick={handleTransform}>
         <TurnOverIcon />
       </button>
@@ -29,11 +32,13 @@ export default function PageCard({data}) {
 
   return (
     <div className="gallery-wrapper">
-      <img
-        className="gallery-img"
-        src={data.image_uris.normal}
-        alt={data.name}
-      />
+      <Link to={`/card/${data.set}/${data.collector_number}`}>
+        <img
+          className="gallery-img"
+          src={data.image_uris.normal}
+          alt={data.name}
+        />
+      </Link>
     </div>
   );
 }
