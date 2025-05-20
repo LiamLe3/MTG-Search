@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import './css/CardPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
@@ -10,7 +10,10 @@ import CardRules from './CardRules';
 
 export default function CardPage() {
   const { set, number } = useParams();
-  const [card, setCard] = useState(null);
+  const location = useLocation();
+  const passedCard = location.state?.card|| null;
+  const passedId = location.state?.id || null;
+  const [card, setCard] = useState(passedCard || null);
   const [rulings, setRulings] = useState([]);
 
   /** Fetches the rulings of the card */
@@ -44,7 +47,10 @@ export default function CardPage() {
   }
 
   useEffect(() => {
-    fetchCard();
+    if(!card) {
+      fetchCard();
+    } else if (card.rulings_uri && rulings.length === 0)
+    
   }, []);
 
   if (!card) return <p>Loading card...</p>;

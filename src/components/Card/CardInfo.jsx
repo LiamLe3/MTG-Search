@@ -62,6 +62,7 @@ export default function CardInfo({data}) {
 
   /** Renders the flavour text, adds breaks to replace \n */
   function renderFlavourText(){
+    if(!data.flavor_text) return null;
     return (
       <i className={`flavour-text ${!data.oracle_text ? 'no-oracle' : ''}`}>
         {data.flavor_text.split('\n').map((line, index) => (
@@ -81,7 +82,7 @@ export default function CardInfo({data}) {
         <p className="info-block">{data.type_line}</p>
         <div className="info-block">
           {data.oracle_text && renderOracleText(data.oracle_text)}
-          {data.flavor_text && renderFlavourText()}
+          {renderFlavourText()}
         </div>
         {data.power && data.toughness && <p className="info-block">{data.power}/{data.toughness}</p>}
         {data.loyalty && <p className="info-block">Loyalty: {data.loyalty}</p>}

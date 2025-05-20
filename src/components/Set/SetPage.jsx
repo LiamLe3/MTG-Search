@@ -60,9 +60,9 @@ export default function SetPage() {
     const children = nodeMap.get(set.code) || [];
 
     const onRowClick = () => {
-      navigate(`/`);
-    };
+      navigate(`/search?q=set:${set.code}`);
 
+    };
     return [
       
       <tr key={set.code} className="table-row" onClick={onRowClick}>

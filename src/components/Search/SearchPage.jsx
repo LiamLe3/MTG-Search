@@ -21,26 +21,27 @@ export default function SearchPage() {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const searchQuery = searchParams.get('q');
-  const [nextPageUrl, setNextPageUrl] = useState(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
+  const [nextPageUrl, setNextPageUrl] = useState("");
+
+  const fetchCards = async (request) => {
+    setLoading(true);
+    try {
+      const response = await fetch(request);
+      const data = await response.json();
+      console.log(data);
+      setCardsData(prev => [...prev, ...data.data]);
+      setNextPageUrl(data.next_page || null);
+      setTotalCards(data.total_cards);
+    } catch (error) {
+      console.error("Error fetching Scryfall cards:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchCards = async (request) => {
-      setLoading(true);
-      try {
-        const response = await fetch(request);
-        const data = await response.json();
-        console.log(data);
-        setCardsData(prev => [...prev, ...data.data]);
-        setNextPageUrl(data.next_page || null);
-        setTotalCards(data.total_cards);
-        setCurrentPage(1);
-      } catch (error) {
-        console.error("Error fetching Scryfall cards:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
+    
     if (cardsData.length === 0) {
       fetchCards(nextPageUrl);
       return;
@@ -51,7 +52,15 @@ export default function SearchPage() {
     if (needsMore && nextPageUrl) {
       fetchCards(nextPageUrl);
     }
-  }, [searchQuery, currentPage]);
+
+  }, [currentPage]);
+
+  useEffect(() => {
+    setCardsData([]);
+    setCurrentPage(1);
+    if(!searchQuery) return;
+    fetchCards(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
+  }, [searchQuery])
 
   function nextPage() {
     setCurrentPage(currentPage + 1);
@@ -75,7 +84,7 @@ export default function SearchPage() {
   function renderGallery() {
     return (
       <section className="search-page">
-        <p>Displaying cards {firstCardIndex + 1} - {lastCardIndex} of {totalCards}</p>
+        <p>Displaying cards {firstCardIndex + 1} - {lastCardIndex < totalCards ? lastCardIndex : totalCards} of {totalCards}</p>
         {renderPageNavigationButtons()}
         <section className="gallery-container">
           {currentCards.map((card, index) => (<PageCard key={index} data={card} />))}

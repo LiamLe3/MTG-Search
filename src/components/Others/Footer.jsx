@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./css/Footer.css"
 
 export default function Footer() {
@@ -8,13 +9,13 @@ export default function Footer() {
           <h5>Cards</h5>
           <ul>
             <li>
-              <a className="footer-link" href="">Advanced Search</a>
+              <Link className="footer-link" to="/advanced">Advanced Search</Link>
             </li>
             <li>
-              <a className="footer-link" href="">All Sets</a>
+              <Link className="footer-link" to="/sets">All Sets</Link>
             </li>
             <li>
-              <a className="footer-link" href="">Random Card</a>
+              <Link className="footer-link" to="/">Random Card</Link>
             </li>
           </ul>
         </div>
