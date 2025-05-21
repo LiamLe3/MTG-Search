@@ -11,119 +11,102 @@ export default function SearchPage() {
   const searchParams = new URLSearchParams(search);
   const searchQuery = searchParams.get('q');
 
-  const [cardsData, setCardsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalCards, setTotalCards] = useState(null);
 
-  
   const [loading, setLoading] = useState(false);
-  const cardsPerPage = 60;
-  const lastCardIndex = currentPage * cardsPerPage;
-  const firstCardIndex = lastCardIndex - cardsPerPage;
-  const currentCards = cardsData.slice(firstCardIndex, lastCardIndex);
-  const totalPages = Math.ceil(totalCards / cardsPerPage);
+  const [error, setError] = useState(null);
 
-  const [pagesData, setPagesData] = useState({});
-  const pagesCacheRef = useRef({});
-  const currentBatch = useRef(null);
+  const cardCache = useRef({});
+  const currentBatchData = useRef(null);
   const pageCount = useRef(0);
 
-  const [nextPageUrl, setNextPageUrl] = useState(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
+  const cardsPerPage = 60;
+  const lastIndex = currentPage * cardsPerPage;
+  const firstIndex = lastIndex - cardsPerPage;
 
-  const fetchCards = async (request) => {
+  const maxPages = Math.ceil((currentBatchData.current?.total_cards || 0) / cardsPerPage)
+  const totalCards = (currentBatchData.current?.total_cards || 0);
+  const cardsToDisplay = (cardCache.current[currentPage] || []);
+
+  const fetchBatch = async(request) => {
     setLoading(true);
+    setError(null);
     try {
       const response = await fetch(request);
+      if(!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
       const data = await response.json();
-      setCardsData(prev => [...prev, ...data.data]);
-      setNextPageUrl(data.next_page || null);
-      setTotalCards(data.total_cards);
-      return data;
-    } catch (error) {
-      console.error("Error fetching Scryfall cards:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const foo = async(request) => {
-    setLoading(true);
-    try {
-      const response = await fetch(request);
-      const data = await response.json();
-      addPages(data);
-      currentBatch.current = data;
-      console.log(currentBatch);
+      addCardsToCache(data);
+      currentBatchData.current = data;
     }catch (error) {
-      console.error("Error fetching Scryfall cards:", error);
+      console.error("Error fetching Scryfall cards...", error);
+      if(error.message.includes("404"))
+        setError("No cards were found...")
+      else 
+        setError(error.message);
     } finally {
       setLoading(false);
     }
   }
 
-  function addPages(data) {
-    const dataLength = data.data.length;
+  function addCardsToCache(data) {
+    const difference = fillLastPage(data.data, pageCount.current)
 
-    if(dataLength < 1) return;
+    pageCount.current = cachePaginateCards(data.data, pageCount.current, difference);
+  }
 
+  function fillLastPage(data, pageNum) {
     let difference = 0;
 
-    if(pageCount.current !== 0) {
-      difference = cardsPerPage - pagesCacheRef.current[pageCount.current].length;
+    if(pageNum !== 0) {
+      difference = cardsPerPage - cardCache.current[pageNum].length;
 
       if(difference > 0) {
-        const fillCards = data.data.slice(0, difference);
-        pagesCacheRef.current[pageCount.current] = [
-          ...pagesCacheRef.current[pageCount.current],
+        const fillCards = data.slice(0, difference);
+        cardCache.current[pageNum] = [
+          ...cardCache[pageNum],
           ...fillCards
         ];
       }
     }
 
+    return difference;
+  }
+
+  function cachePaginateCards(data, startPage, offset) {
+    const dataLength = data.length;
     let loopCounter = 0;
     let lastIndex = 0;
-    let localPageCount = pageCount.current;
+    let pageNum = startPage;
 
     do {
-      localPageCount++;
+      pageNum++;
       loopCounter++;
-      lastIndex = loopCounter * cardsPerPage + difference;
+      lastIndex = loopCounter * cardsPerPage + offset;
       const firstIndex = lastIndex - cardsPerPage;
 
-      const cards = data.data.slice(firstIndex, Math.min(lastIndex, dataLength));
-      pagesCacheRef.current[localPageCount] = cards;
+      const cards = data.slice(firstIndex, Math.min(lastIndex, dataLength));
+      cardCache.current[pageNum] = cards;
     } while(lastIndex < dataLength)
     
-    pageCount.current = localPageCount;
+    return pageNum;
   }
 
   useEffect(() => {
-    pagesCacheRef.current = {};
+    cardCache.current = {};
     pageCount.current = 0;
     setCurrentPage(1);
-    foo(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
+    fetchBatch(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
+
   }, [searchQuery])
 
-
+  
   useEffect(() => {
-    if (cardsData.length === 0) {
-      fetchCards(nextPageUrl);
-      return;
+    if(currentPage === pageCount.current && currentBatchData.current.has_more) {
+      fetchBatch(currentBatchData.current.next_page)
     }
-
-    const needsMore = lastCardIndex > cardsData.length;
-
-    if (needsMore && nextPageUrl) {
-      fetchCards(nextPageUrl);
-    }
-
   }, [currentPage]);
-
-  useEffect(() => {
-    setCardsData([]);
-    setCurrentPage(1);
-    fetchCards(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
-  }, [searchQuery])
 
   function nextPage() {
     setCurrentPage(prev => prev + 1);
@@ -138,8 +121,8 @@ export default function SearchPage() {
   function renderPageNavigationButtons() {
     return (
       <div className="search-nav">
-        <button className="prev-btn" onClick={prevPage} disabled={currentPage === 1}><PrevIcon/>Previous</button>
-        <button className="next-btn" onClick={nextPage} disabled={currentPage === totalPages}>Next 60 <NextIcon/></button>
+        <button className="prev-btn" onClick={prevPage} disabled={currentPage <= 1}><PrevIcon/>Previous</button>
+        <button className="next-btn" onClick={nextPage} disabled={currentPage >= maxPages}>Next 60 <NextIcon/></button>
       </div>
     );
   }
@@ -147,10 +130,10 @@ export default function SearchPage() {
   function renderGallery() {
     return (
       <section className="search-page">
-        <p>Displaying cards {firstCardIndex + 1} - {Math.min(lastCardIndex, totalCards)} of {totalCards}</p>
+        <p>Displaying cards {firstIndex + 1} - {Math.min(lastIndex, totalCards)} of {totalCards}</p>
         {renderPageNavigationButtons()}
         <section className="gallery-container">
-          {currentCards.map((card, index) => (<PageCard key={index} data={card} />))}
+          {cardsToDisplay.map((card, index) => (<PageCard key={index} data={card} />))}
         </section>
         {renderPageNavigationButtons()}
       </section>
@@ -161,7 +144,9 @@ export default function SearchPage() {
     <>
       <Header />
       <main>
-        {loading ? <p>Loading page...</p> : renderGallery()}
+        {loading && <p>Loading page...</p>}
+        {error && <p className="error-message">⚠️ {error}</p>}
+        {!loading && !error && renderGallery()}
       </main>
       <Footer />
     </>
