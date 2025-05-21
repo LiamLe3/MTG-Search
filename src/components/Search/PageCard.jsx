@@ -17,7 +17,7 @@ export default function PageCard({data}) {
 
     return (
     <div className="gallery-wrapper">
-      <Link to={`/card/${data.set}/${data.collector_number}`} onClick={console.log("help")}>
+      <Link to={`/card/${data.set}/${data.collector_number}`}>
         <div className={`gallery ${isTransformed ? 'transform' : ''}`}>
           <img className="gallery-img front" src={front.image_uris.normal} alt={front.name} />
           <img className="gallery-img back" src={back.image_uris.normal} alt={back.name} />
