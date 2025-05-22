@@ -65,7 +65,7 @@ export default function SearchPage() {
       if(difference > 0) {
         const fillCards = data.slice(0, difference);
         cardCache.current[pageNum] = [
-          ...cardCache[pageNum],
+          ...cardCache.current[pageNum],
           ...fillCards
         ];
       }

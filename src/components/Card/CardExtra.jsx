@@ -3,14 +3,14 @@ import React from 'react';
 import './css/CardExtra.css'
 import { Link } from 'react-router-dom';
 export default function CardExtra({data}) {
-  console.log(data.name);
   /** Displays all related cards if any */
+  console.log(data);
   function displayRelated() {
     if(!data.all_parts) return;
 
     // Removes itself from list of related cards
     const filterRelated = data.all_parts.filter(part => part.name !== data.name);
-    console.log(data);
+
     return( 
       <table className="related-info">
         <thead>
@@ -22,7 +22,7 @@ export default function CardExtra({data}) {
           {filterRelated.map(part => (
             <tr key={part.id}>
               <td>
-                <a>{part.name}</a>
+                <Link to={`/card/abc/123`} state={{cardId: part.id}}>{part.name}</Link>
               </td>
             </tr>
           ))}
@@ -61,7 +61,7 @@ export default function CardExtra({data}) {
       
       {displayRelated()}
       {data.artist && <p className="artist-name">Art by {renderArtistLinks(data.artist)}</p>}
-      <Link className="view-alts-btn" to={`/search?q=!"${data.name}" unique:art`}>View Alt Arts</Link>
+      <Link className="view-alts-btn" to={`/search?q=!"${data.name}" unique:art`}>View Unique Arts</Link>
     </section>
   );
 };

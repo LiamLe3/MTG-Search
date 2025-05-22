@@ -32,7 +32,7 @@ export default function PageCard({data}) {
 
   return (
     <div className="gallery-wrapper">
-      <Link to={`/card/${data.set}/${data.collector_number}`}>
+      <Link to={`/card/${data.set}/${data.collector_number}`} state={{cardData: data}}>
         <img
           className="gallery-img"
           src={data.image_uris?.normal}
