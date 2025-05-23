@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./css/Header.css"
 import HeaderSearch from './HeaderSearch.jsx'
 import LogoIcon from "../../assets/LogoIcon.jsx";
+import RandomCard from "./RandomCard.jsx";
 
 export default function Header() {
   return (
@@ -19,9 +20,7 @@ export default function Header() {
           <Link className="header-link" to="/sets">
             <span>Sets</span>
           </Link>
-          <Link className="header-link" to="/">
-            <span>Random</span>
-          </Link>
+          <RandomCard name="header-link" content="Random" />
         </div>
       </nav>
     </header>

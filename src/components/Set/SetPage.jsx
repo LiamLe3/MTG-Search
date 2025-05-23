@@ -15,7 +15,6 @@ export default function SetPage() {
       const response = await fetch('https://api.scryfall.com/sets');
       if(!response.ok) throw new Error('Failed to fetch sets');
       const data = await response.json();
-      console.log(data);
       organiseSetHierarchy(data.data);
     } catch (error) {
       console.error('Error fetching rulings: ', error);

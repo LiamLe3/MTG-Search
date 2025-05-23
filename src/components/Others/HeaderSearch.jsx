@@ -14,7 +14,6 @@ export default function HeaderSearch() {
   };
 
   function handleSubmit(e) {
-    console.log(inputValue);
     e.preventDefault();
     if(inputValue.trim()) {
       navigate(`/search?q=${encodeURIComponent(inputValue.trim())}`);

@@ -29,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: '/card/:set/:number',
     element: <CardPage />
+  },
+  {
+    path: '/card/id/:cardId',
+    element: <CardPage />
   }
 
 ]);

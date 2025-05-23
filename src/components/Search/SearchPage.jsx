@@ -130,7 +130,7 @@ export default function SearchPage() {
   function renderGallery() {
     return (
       <section className="search-page">
-        <p>Displaying cards {firstIndex + 1} - {Math.min(lastIndex, totalCards)} of {totalCards}</p>
+        <p className="display-text">Displaying cards {firstIndex + 1} - {Math.min(lastIndex, totalCards)} of {totalCards}</p>
         {renderPageNavigationButtons()}
         <section className="gallery-container">
           {cardsToDisplay.map((card, index) => (<PageCard key={index} data={card} />))}
@@ -144,7 +144,7 @@ export default function SearchPage() {
     <>
       <Header />
       <main>
-        {loading && <p>Loading page...</p>}
+        {loading && <p className="loading-message">Loading page...</p>}
         {error && <p className="error-message">⚠️ {error}</p>}
         {!loading && !error && renderGallery()}
       </main>

@@ -1,16 +1,33 @@
 
 import React from 'react';
 import './css/CardExtra.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 export default function CardExtra({data}) {
+  const navigate = useNavigate();
+
+  async function handleClick(part) {
+    try {
+      const response = await fetch(`https://api.scryfall.com/cards/${part.id}`);
+      const cardData = await response.json();
+
+      const setResponse = await fetch(`https://api.scryfall.com/sets/${cardData.set}`)
+      const setData = await setResponse.json();
+
+      navigate(`/card/${cardData.set}/${cardData.collector_number}`, {
+        state: { cardData: { ...cardData, symbolUri: setData.icon_svg_uri } }
+      });
+    } catch (error) {
+      console.error('Failed to fetch related card:', error);
+    }
+  }
+
   /** Displays all related cards if any */
-  console.log(data);
   function displayRelated() {
     if(!data.all_parts) return;
 
     // Removes itself from list of related cards
     const filterRelated = data.all_parts.filter(part => part.name !== data.name);
-
+    
     return( 
       <table className="related-info">
         <thead>
@@ -20,9 +37,9 @@ export default function CardExtra({data}) {
         </thead>
         <tbody>
           {filterRelated.map(part => (
-            <tr key={part.id}>
+            <tr key={part.id} onClick={() => handleClick(part)}>
               <td>
-                <Link to={`/card/abc/123`} state={{cardId: part.id}}>{part.name}</Link>
+                <p>{part.name}</p>
               </td>
             </tr>
           ))}

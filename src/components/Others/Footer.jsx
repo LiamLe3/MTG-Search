@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "./css/Footer.css"
+import RandomCard from "./RandomCard";
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
               <Link className="footer-link" to="/sets">All Sets</Link>
             </li>
             <li>
-              <Link className="footer-link" to="/">Random Card</Link>
+              <RandomCard name="footer-link" content="Random Card"/>
             </li>
           </ul>
         </div>

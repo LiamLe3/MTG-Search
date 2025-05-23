@@ -23,12 +23,13 @@ footer {
   list-style: none;
 }
 
-.footer-column a {
+.footer-link {
   text-decoration: none;
   color: #d0d0d0;
 }
 
-.footer-column a:hover {
+.footer-link:hover {
   text-decoration: underline;
   color: #efefef;
+  cursor: pointer;
 }

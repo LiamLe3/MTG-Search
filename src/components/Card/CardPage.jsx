@@ -52,34 +52,17 @@ export default function CardPage() {
       console.error('Error fetching card: ', error);
     }
   }
-  
-    /** Fetches the card then fetches the set icon*/
-  async function fetchCardById(id) {
-    try {
-      const cardResponse = await fetch(`https://api.scryfall.com/cards/${id}`);
-      if(!cardResponse.ok) throw new Error('Failed to fetch card');
-      const cardData = await cardResponse.json();
-
-      fetchSet(cardData);
-
-      fetchRulings(cardData.rulings_uri)
-      navigate(`/card/${cardData.set}/${cardData.collector_number}`, { replace: true });
-    } catch (error) {
-      console.error('Error fetching card: ', error);
-    }
-  }
 
   useEffect(() => {
     const state = location.state || {};
 
-    if(state.cardId) {
-      console.log("Yo");
-      fetchCardById(state.cardId);
+    if(state.cardData) {
+      setCard(state.cardData);
+      fetchRulings(state.cardData.rulings_uri);
     } else if(set && number) {
-      console.log("hey");
       fetchCard(set, number);
     }
-  }, []);
+  }, [set, number]);
 
   if (!card) return <p>Loading card...</p>;
   
