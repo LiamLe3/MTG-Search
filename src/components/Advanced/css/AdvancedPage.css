@@ -1,11 +1,43 @@
-.advanced-label {
-  min-width: 180px;
-  background-color: pink;
-}
-
 .advanced-search-form {
-  display: flex;
-  justify-content: center;
   max-width: 1000px;
   width: 100%;
 }
+
+.form-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid grey;
+  padding: 20px 0;
+}
+
+.advanced-label {
+  min-width: 180px;
+  display: flex;
+}
+
+.advanced-label svg {
+  height: 16px;
+  width: auto;
+  margin-right: 5px;
+}
+
+.form-input {
+  height: 38px;
+  width: 100%;
+  max-width: 420px;
+  padding: 5px 10px;
+}
+
+.colour-checkboxes label{
+  margin-right: 10px;
+}
+
+.colour-checkboxes input {
+  margin-right: 5px;
+}
+
+.colour-checkboxes abbr {
+  margin-right: 3px;
+}
+

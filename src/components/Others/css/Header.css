@@ -13,20 +13,34 @@ header {
   align-items: center;
 }
 
+.header-links {
+  width: auto;
+  display: flex;
+}
+
 .header-link {
+  display: flex;
   margin: 0 6px 0 6px;
   text-decoration: none;
   color: lightgrey;
+  fill: lightgrey;
 }
 
 .header-link:hover {
   text-decoration: underline;
   color: #efefef;
+  fill: #efefef;
   cursor: pointer;
 }
 
 .header-link:first-child {
   margin: 0 6px 0 12px;
+}
+
+.header-link svg {
+  height: 16px;
+  width: auto;
+  margin-right: 5px;
 }
 
 .header-logo {

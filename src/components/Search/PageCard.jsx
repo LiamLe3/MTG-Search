@@ -31,7 +31,7 @@ export default function PageCard({data}) {
 
     return (
     <div className="gallery-wrapper">
-      <div className={`gallery ${isTransformed ? 'transform' : ''}`} onClick={() => handleClick(data)}>
+      <div className={`gallery ${isTransformed ? 'transform' : ''}`} onClick={() => {if (data.layout !== 'art_series') handleClick(data)}}>
         <img className="gallery-img front" src={front.image_uris.normal} alt={front.name} />
         <img className="gallery-img back" src={back.image_uris.normal} alt={back.name} />
       </div>

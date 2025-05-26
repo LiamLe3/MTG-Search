@@ -10,6 +10,7 @@ export default function SetPage() {
 
   const navigate = useNavigate();
 
+  /** Fetches for data of all sets */
   async function fetchSets() {
     try {
       const response = await fetch('https://api.scryfall.com/sets');
@@ -23,17 +24,15 @@ export default function SetPage() {
     }
   }
 
-  useEffect(() => {
-    fetchSets();
-  }, []);
-
-  function formatSetTypeName(typeName) {
+  /** Capitalise Set Type Name */
+  function formatSetType(typeName) {
     return typeName
       .split('_')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
+  /** Organises main sets and subsets hierarchy */
   function organiseSetHierarchy(data) {
     let roots = [];
     const nodeMap = new Map();
@@ -55,6 +54,7 @@ export default function SetPage() {
     setChildSetMap(nodeMap);
   }
 
+  /** Displays all sets in the correct hierarchal order */
   function renderSetTree(set, nodeMap, depth = 0) {
     const children = nodeMap.get(set.code) || [];
 
@@ -62,6 +62,7 @@ export default function SetPage() {
       navigate(`/search?q=set:${set.code}`);
 
     };
+
     return [
       
       <tr key={set.code} className="table-row" onClick={onRowClick}>
@@ -73,14 +74,13 @@ export default function SetPage() {
         </td>
         <td>{set.card_count}</td>
         <td>{set.released_at}</td>
-        <td>{formatSetTypeName(set.set_type)}</td>
+        <td>{formatSetType(set.set_type)}</td>
       </tr>,
       ...children.flatMap(child => renderSetTree(child, nodeMap, depth + 1))
     ];
   }
 
-  if(loading) return <p>Loading...</p>;
-
+  /** Renders the Set page */
   function renderSetPage() {
     return (
       <section className="set-page">
@@ -100,6 +100,12 @@ export default function SetPage() {
       </section>
     );
   }
+
+  useEffect(() => {
+    fetchSets();
+  }, []);
+
+  if(loading) return <p>Loading...</p>;
 
   return (
     <>

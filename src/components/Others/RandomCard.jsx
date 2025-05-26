@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./css/Footer.css"
+import RandomIcon from "../../assets/RandomIcon";
 
 export default function RandomCard({name, content}) {
   const navigate = useNavigate();
@@ -20,5 +21,10 @@ export default function RandomCard({name, content}) {
     }
   }
 
-  return <span className={name} onClick={handleClick}>{content}</span>;
+  return (
+    <span className={name} onClick={handleClick}>
+      {content === "Random" && <RandomIcon />}
+      {content}
+    </span>
+  );
 };
