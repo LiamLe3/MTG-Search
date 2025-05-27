@@ -1,5 +1,11 @@
 
-.gallery-img {
+/*-- Thumbnail --*/
+.thumbnail-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.thumbnail-img {
   width: 100%;
   height: auto;
   border-radius: 4.75% / 3.5%;
@@ -7,31 +13,29 @@
   cursor: pointer;
 }
 
-.gallery {
+.thumbnail-double {
   position: relative;
   width: 100%;
   transform-style: preserve-3d;
   transition: all 0.5s;
 }
 
-.gallery-img.front, .gallery-img.back {
-  backface-visibility: hidden;
-}
-
-.gallery.transform, .gallery-img.back {
-  transform: rotateY(180deg);
-}
-
-.gallery-img.front {
+.thumbnail-img.front {
   position: absolute;
 }
 
-.gallery-wrapper {
-  position: relative;
-  cursor: pointer;
+.thumbnail-img.front,
+.thumbnail-img.back {
+  backface-visibility: hidden;
 }
 
-.gallery-btn {
+.thumbnail.transform,
+.thumbnail-img.back {
+  transform: rotateY(180deg);
+}
+
+/*-- Transform Button --*/
+.transform-btn {
   position: absolute;
   height: 44px;
   width: 44px;
@@ -47,6 +51,6 @@
   cursor: pointer;
 }
 
-.gallery-btn:hover {
+.transform-btn:hover {
   opacity: 1;
 }

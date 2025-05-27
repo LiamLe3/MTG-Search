@@ -3,96 +3,32 @@ import { useLocation } from 'react-router-dom';
 import './css/SearchPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
-import PageCard from './PageCard';
+import ThumbnailCard from './ThumbnailCard';
 import NextIcon from '../../assets/SearchPageAssets/NextIcon';
 import PrevIcon from '../../assets/SearchPageAssets/PrevIcon';
+
 export default function SearchPage() {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const searchQuery = searchParams.get('q');
 
   const [currentPage, setCurrentPage] = useState(1);
-
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const cardCache = useRef({});
-  const currentBatchData = useRef(null);
+  const currentBatch = useRef(null);
   const pageCount = useRef(0);
+  const isFetching = useRef(false);
 
   const cardsPerPage = 60;
-  const lastIndex = currentPage * cardsPerPage;
-  const firstIndex = lastIndex - cardsPerPage;
-
-  const maxPages = Math.ceil((currentBatchData.current?.total_cards || 0) / cardsPerPage)
-  const totalCards = (currentBatchData.current?.total_cards || 0);
-  const cardsToDisplay = (cardCache.current[currentPage] || []);
-
-  const fetchBatch = async(request) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(request);
-      if(!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-      }
-      const data = await response.json();
-      addCardsToCache(data);
-      currentBatchData.current = data;
-    }catch (error) {
-      console.error("Error fetching Scryfall cards...", error);
-      if(error.message.includes("404"))
-        setError("No cards were found...")
-      else 
-        setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function addCardsToCache(data) {
-    const difference = fillLastPage(data.data, pageCount.current)
-
-    pageCount.current = cachePaginateCards(data.data, pageCount.current, difference);
-  }
-
-  function fillLastPage(data, pageNum) {
-    let difference = 0;
-
-    if(pageNum !== 0) {
-      difference = cardsPerPage - cardCache.current[pageNum].length;
-
-      if(difference > 0) {
-        const fillCards = data.slice(0, difference);
-        cardCache.current[pageNum] = [
-          ...cardCache.current[pageNum],
-          ...fillCards
-        ];
-      }
-    }
-
-    return difference;
-  }
-
-  function cachePaginateCards(data, startPage, offset) {
-    const dataLength = data.length;
-    let loopCounter = 0;
-    let lastIndex = 0;
-    let pageNum = startPage;
-
-    do {
-      pageNum++;
-      loopCounter++;
-      lastIndex = loopCounter * cardsPerPage + offset;
-      const firstIndex = lastIndex - cardsPerPage;
-
-      const cards = data.slice(firstIndex, Math.min(lastIndex, dataLength));
-      cardCache.current[pageNum] = cards;
-    } while(lastIndex < dataLength)
-    
-    return pageNum;
-  }
-
+  const maxPages = Math.ceil((currentBatch.current?.total_cards || 0) / cardsPerPage)
+  const totalCards = currentBatch.current?.total_cards || 0;
+  const cardsToDisplay = cardCache.current[currentPage] || [];
+  const firstCardNum = (currentPage - 1) * cardsPerPage + 1;
+  const lastCardNum = Math.min(currentPage * cardsPerPage, totalCards);
+  
+  // Each query change, reset states and fetch first batch
   useEffect(() => {
     cardCache.current = {};
     pageCount.current = 0;
@@ -101,52 +37,112 @@ export default function SearchPage() {
 
   }, [searchQuery])
 
-  
+  // If the last cached page is reached, fetch for next batch if available
   useEffect(() => {
-    if(currentPage === pageCount.current && currentBatchData.current.has_more) {
-      fetchBatch(currentBatchData.current.next_page)
+    if(currentPage === pageCount.current && currentBatch.current.has_more) {
+      fetchBatch(currentBatch.current.next_page)
     }
   }, [currentPage]);
 
+  const fetchBatch = async(url) => {
+    // Prevent concurrent fetches
+    if(isFetching.current) return;
+    isFetching.current = true;
+
+    setLoading(true);
+    setErrorMsg(null);
+    try {
+      const response = await fetch(url);
+      if(!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      const cardBatch = await response.json();
+      cacheBatchCards(cardBatch);
+      currentBatch.current = cardBatch;
+    }catch (error) {
+      console.error("Error fetching Scryfall cards...", error);
+      if(error.message.includes("404"))
+        setErrorMsg("No cards were found...")
+      else 
+        setErrorMsg(error.message);
+    } finally {
+      setLoading(false);
+      isFetching.current = false;
+    }
+  }
+
+  // Cache new batch into pages of cards
+  function cacheBatchCards(batch) {
+    //Ascetain how many cards needed to fill previous page, ignore if first batch
+    const remainingSlots = pageCount.current !== 0
+    ? cardsPerPage - cardCache.current[pageCount.current].length : 0;
+
+    pageCount.current = paginateAndCacheCards(batch.data, pageCount.current, remainingSlots);
+  }
+
+  // Splits cards into pages, filling up previous page if required
+  function paginateAndCacheCards(cards, startPage, offset) {
+    let remaining = [...cards];
+    let page = startPage;
+
+    // If previous page exists and needs to be filled
+    if(offset > 0 && cardCache.current[page]) {
+      cardCache.current[page] = [...cardCache.current[page], ...remaining.splice(0, offset)];
+    }
+
+    // While there are cards still to paginate
+    while(remaining.length > 0) {
+      page++;
+      cardCache.current[page] = remaining.splice(0, cardsPerPage);
+    }
+
+    return page;
+  }
+
+  /**  Navigates user to next page */
   function nextPage() {
     setCurrentPage(prev => prev + 1);
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
+  /**  Navigates user to previous page */
   function prevPage() {
     setCurrentPage(prev => prev - 1);
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
+  /** Renders navigation buttons, sometimes button are not shown if loading or upon reaching the first and/or last page. */
   function renderPageNavigationButtons() {
     return (
       <div className="search-nav">
-        <button className="prev-btn" onClick={prevPage} disabled={currentPage <= 1}><PrevIcon/>Previous</button>
-        <button className="next-btn" onClick={nextPage} disabled={currentPage >= maxPages}>Next 60 <NextIcon/></button>
+        <button className="prev-btn" onClick={prevPage} disabled={currentPage <= 1 || loading}><PrevIcon/>Previous</button>
+        <button className="next-btn" onClick={nextPage} disabled={currentPage >= maxPages || loading}>Next 60 <NextIcon/></button>
       </div>
     );
   }
   
+  /**  Renders all cards to be displayed on the current page */
   function renderGallery() {
     return (
       <section className="search-page">
-        <p className="display-text">Displaying cards {firstIndex + 1} - {Math.min(lastIndex, totalCards)} of {totalCards}</p>
+        <p className="display-text">Displaying cards {firstCardNum} - {lastCardNum} of {totalCards}</p>
         {renderPageNavigationButtons()}
         <section className="gallery-container">
-          {cardsToDisplay.map((card, index) => (<PageCard key={index} data={card} />))}
+          {cardsToDisplay.map((card) => (<ThumbnailCard key={card.id} data={card} />))}
         </section>
         {renderPageNavigationButtons()}
       </section>
     );
   }
 
+  /** Conditionally renders error message, loading message, or the full set table */
   return (
     <>
       <Header />
       <main>
-        {loading && <p className="loading-message">Loading page...</p>}
-        {error && <p className="error-message">⚠️ {error}</p>}
-        {!loading && !error && renderGallery()}
+        {errorMsg && <p className="error">{errorMsg}</p>}
+        {!errorMsg && loading && <p className="loading">Loading page...</p>}
+        {!errorMsg && !loading && renderGallery()}
       </main>
       <Footer />
     </>
