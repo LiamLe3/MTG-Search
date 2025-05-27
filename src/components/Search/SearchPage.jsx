@@ -4,8 +4,8 @@ import './css/SearchPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
 import PageCard from './PageCard';
-import NextIcon from '../../assets/NextIcon';
-import PrevIcon from '../../assets/PrevIcon';
+import NextIcon from '../../assets/SearchPageAssets/NextIcon';
+import PrevIcon from '../../assets/SearchPageAssets/PrevIcon';
 export default function SearchPage() {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);

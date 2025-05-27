@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import './css/HomeSearch.css';
-import LogoIcon from '../../assets/LogoIcon.jsx';
+import LogoIcon from '../../assets/HeaderAssets/LogoIcon.jsx';
 
 export default function HomeSearch() {
   const [isFocused, setIsFocused] = useState(false);

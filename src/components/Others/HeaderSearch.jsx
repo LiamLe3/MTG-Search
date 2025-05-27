@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import './css/HeaderSearch.css';
-import SearchIcon from "../../assets/SearchIcon";
+import SearchIcon from "../../assets/HeaderAssets/SearchIcon";
 
 export default function HeaderSearch() {
   const [isFocused, setIsFocused] = useState(false);

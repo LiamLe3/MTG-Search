@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import "./css/Header.css"
 import HeaderSearch from './HeaderSearch.jsx'
-import LogoIcon from "../../assets/LogoIcon.jsx";
+import LogoIcon from "../../assets/HeaderAssets/LogoIcon.jsx";
 import RandomCard from "./RandomCard.jsx";
-import AdvancedIcon from "../../assets/AdvancedIcon.jsx";
-import SetIcon from "../../assets/SetIcon.jsx";
+import AdvancedIcon from "../../assets/AdvancedPageAssets/AdvancedIcon.jsx";
+import SetIcon from "../../assets/SharedAssets/SetIcon.jsx";
 
 export default function Header() {
   return (

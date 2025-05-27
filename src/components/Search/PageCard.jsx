@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./css/PageCard.css"
-import TurnOverIcon from '../../assets/TurnOverIcon';
+import TurnOverIcon from '../../assets/SharedAssets/TurnOverIcon';
 export default function PageCard({data}) {
   const [isTransformed, setIsTransformed] = useState(false);
   

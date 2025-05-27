@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./css/Footer.css"
-import RandomIcon from "../../assets/RandomIcon";
+import RandomIcon from "../../assets/HeaderAssets/RandomIcon";
 
 export default function RandomCard({name, content}) {
   const navigate = useNavigate();

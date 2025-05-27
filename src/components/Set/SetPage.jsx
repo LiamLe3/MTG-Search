@@ -3,28 +3,65 @@ import { useNavigate } from 'react-router-dom';
 import './css/SetPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
-export default function SetPage() {
-  const [rootSets, setRootSets] = useState([]);
-  const [childSetMap, setChildSetMap] = useState(null);
-  const [loading, setLoading] = useState(true);
 
+export default function SetPage() {
+  const [flatSetList, setFlatSetList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
+  
   const navigate = useNavigate();
 
-  /** Fetches for data of all sets */
+    useEffect(() => {
+    fetchSets();
+  }, []);
+
+  /** Fetches and processes set data given from the Scryfall API */
   async function fetchSets() {
     try {
       const response = await fetch('https://api.scryfall.com/sets');
       if(!response.ok) throw new Error('Failed to fetch sets');
       const data = await response.json();
-      organiseSetHierarchy(data.data);
+      flattenSetHierarchy(data.data);
     } catch (error) {
-      console.error('Error fetching rulings: ', error);
+      console.error('Error fetching sets: ', error);
+      setErrorMsg('Failed to fetch sets...')
     } finally {
       setLoading(false);
     }
   }
 
-  /** Capitalise Set Type Name */
+  /* Flatten the tree recursively */
+  function recursiveFlatten(set, depth, childrenMap, flatList) {
+    flatList.push({ ...set, depth });
+    const children = childrenMap.get(set.code) || [];
+    children.forEach(child => recursiveFlatten(child, depth + 1, childrenMap, flatList));
+  }
+
+  /** Builds and flattens a set hierarchy, preserving parent-child relationships using depth */
+  function flattenSetHierarchy(data) {
+    const roots = [];
+    const childrenMap = new Map();
+
+    // Group sets by parent code
+    data.forEach(set => {
+      const parentCode = set.parent_set_code;
+      if (parentCode) { // exists then and
+        if (!childrenMap.has(parentCode)) { // add it to map
+          childrenMap.set(parentCode, []);
+        }
+        childrenMap.get(parentCode).push(set);
+      } else { // this set is a root-level set
+        roots.push(set);
+      }
+    });
+
+    const flatList = [];
+    roots.forEach(root => recursiveFlatten(root, 0, childrenMap, flatList));
+
+    setFlatSetList(flatList);
+  }
+
+  /** Capitalise Set Type Name e.g. (core_set -> Core Set) */
   function formatSetType(typeName) {
     return typeName
       .split('_')
@@ -32,55 +69,12 @@ export default function SetPage() {
       .join(' ');
   }
 
-  /** Organises main sets and subsets hierarchy */
-  function organiseSetHierarchy(data) {
-    let roots = [];
-    const nodeMap = new Map();
-
-    data.forEach((set) => {
-      const parent_code = set.parent_set_code;
-      if(parent_code){
-        if(!nodeMap.has(parent_code)){
-          nodeMap.set(parent_code, [])
-        }
-        nodeMap.get(parent_code).push(set);
-
-      } else {
-        roots.push(set);
-      }
-    });
-
-    setRootSets(roots);
-    setChildSetMap(nodeMap);
+  /** Navigates to a search of given set code */
+  function handleRowClick(setCode) {
+    navigate(`/search?q=set:${setCode}`);
   }
 
-  /** Displays all sets in the correct hierarchal order */
-  function renderSetTree(set, nodeMap, depth = 0) {
-    const children = nodeMap.get(set.code) || [];
-
-    const onRowClick = () => {
-      navigate(`/search?q=set:${set.code}`);
-
-    };
-
-    return [
-      
-      <tr key={set.code} className="table-row" onClick={onRowClick}>
-        <td className="set-name">
-          {depth > 0 && <span className={`${depth === 1 ? 'indent' : 'indent-more'}`}>↳</span>}
-          <img className="set-symbol" src={set.icon_svg_uri} alt={set.code}/>
-          <span>{set.name}</span>
-          <span className="set-code">{set.code.toUpperCase()}</span>
-        </td>
-        <td>{set.card_count}</td>
-        <td>{set.released_at}</td>
-        <td>{formatSetType(set.set_type)}</td>
-      </tr>,
-      ...children.flatMap(child => renderSetTree(child, nodeMap, depth + 1))
-    ];
-  }
-
-  /** Renders the Set page */
+  /** Renders full set listing table, includes header and all set rows */
   function renderSetPage() {
     return (
       <section className="set-page">
@@ -94,24 +88,35 @@ export default function SetPage() {
             </tr>
           </thead>
           <tbody className="table-body">
-            {rootSets.flatMap(set => renderSetTree(set, childSetMap))}
+            {flatSetList.map(set => (
+              <tr key={set.code} className="table-row" onClick={()=> handleRowClick(set.code)}>
+                <td className="set-name">
+                  {set.depth > 0 && (
+                    <span className={`${set.depth === 1 ? 'indent' : 'indent-more'}`}>↳</span>
+                  )}
+                  <img className="set-symbol" src={set.icon_svg_uri} alt={set.code} />
+                  <span>{set.name}</span>
+                  <span className="set-code">{set.code.toUpperCase()}</span>
+                </td>
+                <td>{set.card_count}</td>
+                <td>{set.released_at}</td>
+                <td>{formatSetType(set.set_type)}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </section>
     );
   }
 
-  useEffect(() => {
-    fetchSets();
-  }, []);
-
-  if(loading) return <p>Loading...</p>;
-
+  /** Conditionally renders error message, loading message, or the full set table */
   return (
     <>
       <Header />
       <main>
-        {loading ? <p>Loading page...</p> : renderSetPage()}
+        {errorMsg && <p className="error">{errorMsg}</p>}
+        {!errorMsg && loading && <p className="loading">Loading page...</p>}
+        {!errorMsg && !loading && renderSetPage()}
       </main>
       <Footer />
     </>
