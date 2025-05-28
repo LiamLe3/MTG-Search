@@ -4,6 +4,7 @@
   padding: 0;
 }
 
+/* --- Home Page Formatting --- */
 .home-page {
   display: flex;
   align-items: center;

@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function CardExtra({data}) {
   const navigate = useNavigate();
 
+  /** Fetches for the card info and set symbol of related card, then navigates to that card's page */
   async function handleClick(part) {
     try {
       const response = await fetch(`https://api.scryfall.com/cards/${part.id}`);
@@ -54,7 +55,9 @@ export default function CardExtra({data}) {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-  /** Renders artists links, if there only one artist display only one otherwise display both artists */
+  /** Renders artists links, if there only one artist display only one otherwise display both artists 
+   * Also redirects to search page with other cards said artist has illustrated
+  */
   function renderArtistLinks(artists) {
     return artists.split('&').map((name, index) => {
       const trimmedName = name.trim();
@@ -68,6 +71,7 @@ export default function CardExtra({data}) {
     });
   }
 
+  /** Render Extras section, with links to set search query, related cards, and unique art of same card search query */
   return (
     <section className="extra-container">
       <Link className="extra-info" to={`/search?q=set:${data.set}`}>

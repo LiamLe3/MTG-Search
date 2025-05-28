@@ -9,6 +9,7 @@ export default function HomeSearch() {
   const location = useLocation();
   const navigate = useNavigate();
   
+  /** Autofocuses on search bar, and clears when navigating to home page */
   useEffect(() => {
     if(location.pathname === '/') {
       setInputValue('');
@@ -16,6 +17,7 @@ export default function HomeSearch() {
     }
   }, [location])
 
+  /** Handles navigation to the search page with given search query */
   function handleSubmit(e) {
     e.preventDefault();
     if(inputValue.trim()) {
@@ -23,6 +25,7 @@ export default function HomeSearch() {
     }
   }
   
+  /** Renders the home page search bar */
   return (
     <form className='home-search-form' onSubmit={handleSubmit}>
       <Link to="/" className="home-logo">

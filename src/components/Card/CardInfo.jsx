@@ -16,6 +16,7 @@ export default function CardInfo({data}) {
     );
   
     let match;
+    // While there are text to replace with symbols
     while ((match = masterPattern.exec(text)) !== null) {
 
       // Adds any text before each match
@@ -74,7 +75,8 @@ export default function CardInfo({data}) {
       </i>
     );
   }
-
+  
+  /** Render card info */
   function renderInfo(data) {
     return (
       <>
@@ -119,6 +121,7 @@ export default function CardInfo({data}) {
     return <p className="info-block legality">Commander <span className="legal">LEGAL</span></p>;;
   }
 
+  /** Render card info section */
   return (
     <>
       <section className="info-container">

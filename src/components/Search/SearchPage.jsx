@@ -44,7 +44,8 @@ export default function SearchPage() {
     }
   }, [currentPage]);
 
-  const fetchBatch = async(url) => {
+  /** Fetches for the batch of cards from given url; handles pagination and caching */
+  async function fetchBatch(url) {
     // Prevent concurrent fetches
     if(isFetching.current) return;
     isFetching.current = true;
@@ -71,16 +72,17 @@ export default function SearchPage() {
     }
   }
 
-  // Cache new batch into pages of cards
+  /**  Cache new batch into pages of cards */
   function cacheBatchCards(batch) {
     //Ascetain how many cards needed to fill previous page, ignore if first batch
     const remainingSlots = pageCount.current !== 0
     ? cardsPerPage - cardCache.current[pageCount.current].length : 0;
 
+    // Paginate the rest of the cards in the batch
     pageCount.current = paginateAndCacheCards(batch.data, pageCount.current, remainingSlots);
   }
 
-  // Splits cards into pages, filling up previous page if required
+  /** Splits cards into pages, filling up previous page if required */
   function paginateAndCacheCards(cards, startPage, offset) {
     let remaining = [...cards];
     let page = startPage;

@@ -3,6 +3,7 @@ import HomeSearch from './HomeSearch';
 import HomeLinks from './HomeLinks';
 import Footer from '../Others/Footer';
 export default function HomePage() {
+  /** Renders the home page */
   return (
     <>
       <main>

@@ -3,6 +3,7 @@ import "./css/HomeLinks.css"
 import RandomCard from "../Others/RandomCard";
 
 export default function HomeLinks() {
+	/** Renders home page links */
 	return (
 		<nav className="home-nav">
 			<Link className="home-link" to="/advanced">Advanced Search</Link>

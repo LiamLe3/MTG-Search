@@ -7,6 +7,7 @@ import AdvancedIcon from "../../assets/AdvancedPageAssets/AdvancedIcon.jsx";
 import SetIcon from "../../assets/SharedAssets/SetIcon.jsx";
 
 export default function Header() {
+  /** Renders the header */
   return (
     <header>
       <nav className='header-nav'>
@@ -18,11 +19,11 @@ export default function Header() {
         <div className='header-links'>
           <Link className="header-link" to="/advanced">
             <AdvancedIcon />
-            <span>Advanced</span>
+            Advanced
           </Link>
           <Link className="header-link" to="/sets">
             <SetIcon /> 
-            <span>Sets</span>
+            Sets
           </Link>
           <RandomCard name="header-link" content="Random" />
         </div>

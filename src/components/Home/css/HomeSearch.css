@@ -1,3 +1,4 @@
+/* --- Home Page Search Bar Formatting --- */
 .home-search-form {
     display: flex;
     align-items: center;
@@ -6,6 +7,7 @@
     width: 100%;
 }
 
+/* --- Logo --- */
 .home-logo {
     display: block;
     position: absolute;
@@ -14,6 +16,7 @@
     margin-left: 8px;
 }
 
+/* --- Search Bar --- */
 .home-search-bar {
     display: flex;
     background-color: #201c2c;

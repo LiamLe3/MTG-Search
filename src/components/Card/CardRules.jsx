@@ -14,6 +14,7 @@ export default function CardImg({data}) {
     const symbolPattern = /\{(.*?)\}/g;
   
     let match;
+    // While there is text to replace in symbols
     while ((match = symbolPattern.exec(text)) !== null) {
       // Add any text before the match
       if (match.index > lastIndex) {
@@ -42,6 +43,7 @@ export default function CardImg({data}) {
     return parts;
   }
 
+  /** Renders card rules in two columns */
   return (
     <div className="rulings-background">
       <section className="rules-container">

@@ -3,6 +3,7 @@ import "./css/Footer.css"
 import RandomCard from "./RandomCard";
 
 export default function Footer() {
+  /** Renders the footer */
   return (
     <footer>
       <nav className="footer-nav">

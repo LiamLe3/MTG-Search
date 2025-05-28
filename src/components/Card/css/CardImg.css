@@ -1,3 +1,4 @@
+/*--- Image Section Formatting ---*/
 .img-container {
   width: 100%;
   max-width: 325px;
@@ -6,6 +7,7 @@
   align-items: center;
 }
 
+/* --- Card Formatting --- */
 .card {
   position: relative;
   width: 100%;
@@ -13,6 +15,7 @@
   transition: all 0.5s;
 }
 
+/* --- Card Rotation/Flip --- */
 .card.rotate.left {
   transform: rotateZ(-90deg) scale(0.75);
 }
@@ -33,6 +36,7 @@
   transform: rotateZ(180deg);
 }
 
+/* --- Card Image --- */
 .card-img {
   width: 100%;
 }
@@ -53,6 +57,7 @@
   position: relative;
 }
 
+/* --- Image Button --- */
 .img-container button {
   display: flex;
   margin-top: 10px;

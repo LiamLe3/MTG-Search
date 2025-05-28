@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import './css/CardPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
@@ -10,7 +10,6 @@ import CardRules from './CardRules';
 
 export default function CardPage() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { set, number } = useParams();
   const [card, setCard] = useState(null);
   const [rulings, setRulings] = useState([]);

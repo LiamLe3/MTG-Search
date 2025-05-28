@@ -1,3 +1,4 @@
+/* --- Symbol Formatting --- */
 .symbol {
   display: inline-block;
   width: 16px;
@@ -7,6 +8,7 @@
   margin: 0 1px;
 }
 
+/* --- Symbols Images --- */
 .symbol-T {
   background-image: url('https://svgs.scryfall.io/card-symbols/T.svg');
 }

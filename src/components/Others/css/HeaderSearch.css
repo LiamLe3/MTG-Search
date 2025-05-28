@@ -1,3 +1,4 @@
+/* --- Header Search Bar Formatting --- */
 .header-search-form {
   display: flex;
   justify-content: center;
@@ -14,10 +15,12 @@
   fill: lightgrey;
 }
 
+/* --- Search Icon --- */
 .header-search-form svg {
   height: 20px;
 }
 
+/* --- Search Bar --- */
 .header-search-form .search-bar {
   display: flex;
   background-color: #242031;

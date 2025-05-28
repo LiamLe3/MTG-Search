@@ -9,10 +9,12 @@ export default function HeaderSearch() {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
 
+  /** Clicking anywhere on the search bar will focus on it e.g. clicking on icon */
   const handleSearchBarClick = () => {
     inputRef.current.focus();
   };
 
+  /** Handles navigation to the search page with given search query */
   function handleSubmit(e) {
     e.preventDefault();
     if(inputValue.trim()) {
@@ -20,6 +22,7 @@ export default function HeaderSearch() {
     }
   }
 
+  /** Render header search bar */
   return (
     <form 
       className={`header-search-form ${isFocused ? 'focused' : ''} `}

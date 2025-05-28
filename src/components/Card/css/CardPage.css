@@ -10,6 +10,7 @@ main {
   align-items: center;
 }
 
+/* --- Card Page Formatting --- */
 .card-page {
   max-width: 1000px;
   width: 100%;

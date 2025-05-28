@@ -111,7 +111,7 @@ export default function CardImg({data}) {
     );
   }
 
-  // Determines and displays the correct layout of the card
+  /**  Determines and displays the correct layout of the card */
   function displayLayout() {
     if(['split', 'planar'].includes(data.layout)) return splitCard();
     else if(data.layout === 'flip') return flipCard();
@@ -122,6 +122,7 @@ export default function CardImg({data}) {
     else return normalCard();
   }
   
+  /** Render image section */
   return (
     <div className="img-container">
         {displayLayout()}
