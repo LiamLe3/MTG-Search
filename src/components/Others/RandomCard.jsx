@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./css/Footer.css"
 import RandomIcon from "../../assets/HeaderAssets/RandomIcon";
 
-export default function RandomCard({name, content}) {
+export default function RandomCard({name, content, isHeader = false}) {
   const navigate = useNavigate();
 
   /** Fetches for a random card, its set info, then navigates to that card's detail page */
@@ -26,7 +26,7 @@ export default function RandomCard({name, content}) {
   // Display the text, only display icon if component is in the header
   return (
     <span className={name} onClick={handleClick}>
-      {content === "Random" && <RandomIcon />}
+      {isHeader && <RandomIcon />}
       {content}
     </span>
   );

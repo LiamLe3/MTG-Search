@@ -29,7 +29,7 @@
   backface-visibility: hidden;
 }
 
-.thumbnail.transform,
+.thumbnail-double.transform,
 .thumbnail-img.back {
   transform: rotateY(180deg);
 }

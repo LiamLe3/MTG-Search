@@ -25,7 +25,7 @@ export default function Header() {
             <SetIcon /> 
             Sets
           </Link>
-          <RandomCard name="header-link" content="Random" />
+          <RandomCard name="header-link" content="Random" isHeader={true} />
         </div>
       </nav>
     </header>
