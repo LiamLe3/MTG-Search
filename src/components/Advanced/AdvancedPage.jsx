@@ -14,6 +14,7 @@ import ArtistIcon from '../../assets/AdvancedPageAssets/ArtistIcon';
 import SYMBOL_DESCRIPTIONS from '../Card/CardInfoConstants';
 import CheckboxGroup from './Checkbox';
 import '../Others/css/Symbols.css';
+
 export default function AdvancedPage() {
   const [filters, setFilters] = useState({
     name: "",
