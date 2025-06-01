@@ -42,3 +42,13 @@
   margin-right: 3px;
 }
 
+.stats-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.stats-section {
+  display: flex;
+  flex-direction: column;
+}

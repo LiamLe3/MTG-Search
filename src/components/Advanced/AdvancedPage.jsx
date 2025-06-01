@@ -54,7 +54,8 @@ export default function AdvancedPage() {
     // If editing the last row and it's now filled, add a new empty row
     const last = newStats[newStats.length - 1];
     const isLastFilled = last.stat && last.operator && last.value !== "";
-    if (isLastFilled && index === newStats.length - 1) {
+
+    if (isLastFilled && newStats.length < 4) {
       newStats.push({ stat: "", operator: "", value: "" });
     }
 
@@ -162,22 +163,38 @@ export default function AdvancedPage() {
                 <StatsIcon />
                 Stats
               </label>
-              <div>
-                <select>
-                  <option value="cmc">Mana Value</option>
-                  <option value="pow">Power</option>
-                  <option value="tou">Toughness</option>
-                  <option value="loy">Loyalty</option>
-                </select>
-                <select>
-                  <option value="=">equal to</option>
-                  <option value="<">less than</option>
-                  <option value=">">greater than</option>
-                  <option value="<=">less than or equal to</option>
-                  <option value=">=">greater than or equal to</option>
-                  <option value="!=">not equal to</option>
-                </select>
-                <input type="number"/>
+              <div className="stats-section">
+              {filters.stats.map((statFilter, index) => (
+                <div key={index} className="stats-row">
+                  <select
+                    value={statFilter.stat}
+                    onChange={(e) => handleStatChange(index, 'stat', e.target.value)}
+                  >
+                    <option value="" disabled hidden>-- Select Operator --</option>
+                    <option value="cmc">Mana Value</option>
+                    <option value="pow">Power</option>
+                    <option value="tou">Toughness</option>
+                    <option value="loy">Loyalty</option>
+                  </select>
+                  <select
+                    value={statFilter.operator}
+                    onChange={(e) => handleStatChange(index, 'operator', e.target.value)}
+                  >
+                    <option value="" disabled hidden>-- Select Operator --</option>
+                    <option value="=">equal to</option>
+                    <option value="<">less than</option>
+                    <option value=">">greater than</option>
+                    <option value="<=">less than or equal to</option>
+                    <option value=">=">greater than or equal to</option>
+                    <option value="!=">not equal to</option>
+                  </select>
+                  <input 
+                    type="number"
+                    value={statFilter.value}
+                    onChange={(e) => handleStatChange(index, 'value', e.target.value)}
+                  />
+                </div>
+              ))}
               </div>
             </div>
             <div className="form-row">
