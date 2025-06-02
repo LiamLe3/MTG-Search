@@ -1,3 +1,5 @@
+import './css/Checkbox.css';
+
 export default function CheckboxGroup({ options, selected, onChange, labelPrefix = "" }) {
   const handleChange = (value) => {
     const newSelected = selected.includes(value)

@@ -170,7 +170,7 @@ export default function AdvancedPage() {
                     value={statFilter.stat}
                     onChange={(e) => handleStatChange(index, 'stat', e.target.value)}
                   >
-                    <option value="" disabled hidden>-- Select Operator --</option>
+                    <option value="" disabled hidden></option>
                     <option value="cmc">Mana Value</option>
                     <option value="pow">Power</option>
                     <option value="tou">Toughness</option>
@@ -180,7 +180,7 @@ export default function AdvancedPage() {
                     value={statFilter.operator}
                     onChange={(e) => handleStatChange(index, 'operator', e.target.value)}
                   >
-                    <option value="" disabled hidden>-- Select Operator --</option>
+                    <option value="" disabled hidden></option>
                     <option value="=">equal to</option>
                     <option value="<">less than</option>
                     <option value=">">greater than</option>
