@@ -41,18 +41,6 @@
   outline: none;
 }
 
-.colour-checkboxes label{
-  margin-right: 10px;
-}
-
-.colour-checkboxes input {
-  margin-right: 5px;
-}
-
-.colour-checkboxes abbr {
-  margin-right: 3px;
-}
-
 .stats-row {
   display: flex;
   gap: 10px;

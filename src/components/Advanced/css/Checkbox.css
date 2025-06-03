@@ -1,3 +1,50 @@
-.checkbox {
-  box-shadow: none;
+.advanced-checkbox {
+  border: 1px solid #AEAEAE;
+  border-radius: 2px;
+  height: 26px;
+  width: 26px;
+  appearance: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.advanced-checkbox:checked:before {
+  content:"✓";
+  color: #551A8B;
+}
+
+.advanced-checkbox:checked {
+  border-color: #3b1260;
+}
+
+.advanced-checkbox:focus {
+  border-color: #3b1260;
+}
+
+.checkbox-group label{
+  margin-right: 10px;
+}
+
+.checkbox-group input {
+  margin-right: 5px;
+}
+
+.checkbox-group abbr {
+  margin-right: 3px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label:hover{
+  border-color: #3b1260;
+  background-color: yellow;
+}
+
+.checkbox-group {
+  display: flex;
 }

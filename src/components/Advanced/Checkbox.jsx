@@ -9,19 +9,20 @@ export default function CheckboxGroup({ options, selected, onChange, labelPrefix
   };
 
   return (
-    <>
+    <div className="checkbox-group">
       {options.map(({ value, label, icon }) => (
-        <label key={value}>
+        <label key={value} className="checkbox-label">
           <input
             type="checkbox"
             value={value}
             checked={selected.includes(value)}
             onChange={() => handleChange(value)}
+            className="advanced-checkbox"
           />
           {icon}
           {labelPrefix}{label}
         </label>
       ))}
-    </>
+    </div>
   );
 }

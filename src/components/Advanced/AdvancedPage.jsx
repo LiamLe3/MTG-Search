@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/AdvancedPage.css'
 import Header from '../Others/Header';
 import Footer from '../Others/Footer';
@@ -16,6 +17,8 @@ import CheckboxGroup from './Checkbox';
 import '../Others/css/Symbols.css';
 
 export default function AdvancedPage() {
+  const navigate = useNavigate()
+
   const [filters, setFilters] = useState({
     name: "",
     text: "",
@@ -47,6 +50,52 @@ export default function AdvancedPage() {
     { value: "mythic", label: "Mythic" }
   ];
 
+  function buildQuery(filters) {
+    const parts = [];
+
+    if (filters.name) parts.push(`name:${filters.name}`);
+    if (filters.text) parts.push(`oracle:${filters.text}`);
+    if (filters.type) parts.push(`type:${filters.type}`);
+    if (filters.set) parts.push(`set:${filters.set}`);
+    if (filters.artist) parts.push(`artist:"${filters.artist}"`);
+
+    // Colours
+    if (filters.colours.length > 0) {
+      const joined = filters.colours.join('');
+      parts.push(`color${filters.colourMode}${joined}`);
+    }
+
+    // Mana Value (CMC)
+    if (filters.cmc) {
+      parts.push(`cmc=${filters.cmc}`);
+    }
+
+    // Stats
+    filters.stats.forEach(({ stat, operator, value }) => {
+      if (stat && operator && value !== "") {
+        let field;
+        if (stat === "pow") field = "power";
+        else if (stat === "tou") field = "toughness";
+        else if (stat === "loy") field = "loyalty";
+        else field = "cmc";
+        parts.push(`${field}${operator}${value}`);
+      }
+    });
+
+    // Rarity
+    if (filters.rarity.length > 0) {
+      const joined = filters.rarity.map(r => `rarity:${r}`).join(' OR ');
+      parts.push(`(${joined})`);
+    }
+
+    return parts.join(' ');
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const query = buildQuery(filters);
+    navigate(`/search?q=${encodeURIComponent(query)}`);
+  }
   function handleStatChange(index, field, newValue) {
     const newStats = [...filters.stats];
     newStats[index][field] = newValue;
@@ -67,12 +116,11 @@ export default function AdvancedPage() {
       const response = await fetch('https://api.scryfall.com/catalog/flavor-words');
       if(!response.ok) throw new Error('Failed to fetch sets');
       const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.error('Error fetching rulings: ', error);
     }
   }
-
+  
   useEffect(() => {
     fetchKeywords();
   }, []);
@@ -126,13 +174,11 @@ export default function AdvancedPage() {
               </label>
               <div>
                 <fieldset>
-                  <div className="colour-checkboxes">
-                    <CheckboxGroup
-                      options={colourOptions}
-                      selected={filters.colours}
-                      onChange={(newColours) => setFilters({ ...filters, colours: newColours })}
-                    />
-                  </div>
+                  <CheckboxGroup
+                    options={colourOptions}
+                    selected={filters.colours}
+                    onChange={(newColours) => setFilters({ ...filters, colours: newColours })}
+                  />
                 </fieldset>
                 <fieldset>
                   <select
@@ -215,13 +261,11 @@ export default function AdvancedPage() {
                 Rarity
               </label>
                 <fieldset>
-                  <div className="colour-checkboxes">
-                    <CheckboxGroup
-                      options={rarityOptions}
-                      selected={filters.rarity}
-                      onChange={(newRarities) => setFilters({ ...filters, rarity: newRarities })}
-                    />
-                  </div>
+                  <CheckboxGroup
+                    options={rarityOptions}
+                    selected={filters.rarity}
+                    onChange={(newRarities) => setFilters({ ...filters, rarity: newRarities })}
+                  />
                 </fieldset>
             </div>
             <div className="form-row">
@@ -236,7 +280,7 @@ export default function AdvancedPage() {
                 className="form-input"
               />
             </div>
-            <button onClick={console.log(filters)}>Search</button>
+            <button onClick={handleSubmit}>Search</button>
           </div>
         </form>
       </main>
