@@ -1,8 +1,10 @@
+/* --- Form container --- */
 .advanced-search-form {
   max-width: 1000px;
   width: 100%;
 }
 
+/* --- Form rows --- */
 .form-row {
   width: 100%;
   display: flex;
@@ -11,36 +13,76 @@
   padding: 20px 0;
 }
 
+.form-row:last-child {
+  border-bottom: none;
+}
+
+/* --- Labels --- */
 .advanced-label {
   min-width: 180px;
   display: flex;
+  font-size: 16px;
 }
 
 .advanced-label svg {
-  height: 16px;
-  width: auto;
+  height: 18px;
+  width: 18px;
   margin-right: 5px;
+  fill: #551a8B;
 }
 
-
-.form-input {
+/* --- Form input --- */
+.form-input,
+.stats-input {
   height: 38px;
-  width: 100%;
-  max-width: 420px;
   padding: 5px 10px;
   font-size: 16px;
-  
+  border: 1px solid #AEAEAE;
+  border-radius: 2px;
 }
 
-.form-input:focus {
-  box-shadow: 0px 0px 3px #AEAEAE;
+.form-input {
+  width: 100%;
+  max-width: 420px;
+}
+
+.form-input:focus,
+.stats-input:focus {
   background-color: #FFF;
   border: 1px solid #3b1260;
-  border-color: #3b1260;
-  border-radius: 2px;
   outline: none;
 }
 
+/* --- Select --- */
+.advanced-select {
+  height: 38px;
+  padding: 5px 30px 5px 10px;
+  font-size: 16px;
+  border: 1px solid #AEAEAE;
+  border-radius: 2px;
+  appearance: none;
+  background-image: url('../../../assets/AdvancedPageAssets/Dropdown.svg');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.advanced-select:focus {
+  background-color: #FFF;
+  border: 1px solid #3b1260;
+  outline: none;
+}
+
+.colours-select {
+  margin-top: 20px;
+}
+
+/* --- Fieldset --- */
+fieldset {
+  border: none;
+}
+
+/* --- Stats --- */
 .stats-row {
   display: flex;
   gap: 10px;
@@ -52,6 +94,19 @@
   flex-direction: column;
 }
 
-fieldset {
-  border: none;
+/* --- Search button --- */
+.search-btn {
+  font-size: 16px;
+  font-weight: bold;
+  color: #551a8b;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 3px;
+  border: 1px solid #5d1e98;
+  margin-bottom: 20px;
+}
+
+.search-btn:hover {
+  border-color: #634496;
+  background-color: #FFF;
 }

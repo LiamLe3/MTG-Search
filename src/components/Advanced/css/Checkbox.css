@@ -1,3 +1,4 @@
+/* --- Checkbox base stylings --- */
 .advanced-checkbox {
   border: 1px solid #AEAEAE;
   border-radius: 2px;
@@ -10,6 +11,7 @@
   font-size: 20px;
 }
 
+/* --- Checkbox states --- */
 .advanced-checkbox:checked:before {
   content:"✓";
   color: #551A8B;
@@ -17,10 +19,29 @@
 
 .advanced-checkbox:checked {
   border-color: #3b1260;
+  background-color: #FFF
 }
 
-.advanced-checkbox:focus {
+.advanced-checkbox:focus,
+.advanced-checkbox:hover {
   border-color: #3b1260;
+  background-color: #FFF
+}
+
+/* --- Checkbox label --- */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.checkbox-label:hover{
+  border-color: #3b1260;
+}
+
+/* --- Checkbox group layout --- */
+.checkbox-group {
+  display: flex;
 }
 
 .checkbox-group label{
@@ -33,18 +54,4 @@
 
 .checkbox-group abbr {
   margin-right: 3px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-label:hover{
-  border-color: #3b1260;
-  background-color: yellow;
-}
-
-.checkbox-group {
-  display: flex;
 }

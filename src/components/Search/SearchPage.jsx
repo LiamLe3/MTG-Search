@@ -34,6 +34,7 @@ export default function SearchPage() {
     pageCount.current = 0;
     setCurrentPage(1);
     fetchBatch(`https://api.scryfall.com/cards/search?q=${searchQuery}`);
+    console.log(searchQuery);
 
   }, [searchQuery])
 
@@ -64,6 +65,8 @@ export default function SearchPage() {
       console.error("Error fetching Scryfall cards...", error);
       if(error.message.includes("404"))
         setErrorMsg("No cards were found...")
+      else if(error.message.includes("400"))
+        setErrorMsg("Empty search query...")
       else 
         setErrorMsg(error.message);
     } finally {
@@ -127,6 +130,7 @@ export default function SearchPage() {
   function renderGallery() {
     return (
       <section className="search-page">
+        <p className="search-text">Searching for {searchQuery}</p>
         <p className="display-text">Displaying cards {firstCardNum} - {lastCardNum} of {totalCards}</p>
         {renderPageNavigationButtons()}
         <section className="gallery-container">
