@@ -75,3 +75,37 @@ main {
 .error {
   margin-top: 20px;
 }
+
+
+@media only screen and (max-width: 432px) {
+  /* --- Layout --- */
+  .set-page {
+    overflow-x: auto;
+    background-color: #eeeeee;
+  }
+
+  /* --- Table Styles --- */
+  .set-table {
+    width: max-content;
+  }
+
+  .set-table th,
+  .set-table td {
+    font-size: 14px;
+  }
+  /* --- Indentation --- */
+  .indent {
+    margin: 0 5px 0 5px;
+  }
+
+  .indent-more {
+    margin: 0 5px 0 10px;
+  }
+  
+  /* --- Symbols & Set Code --- */
+  .set-symbol {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
+}
