@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
 /* --- Home Page Formatting --- */
 .home-page {
   display: flex;
@@ -19,8 +23,13 @@
 .home-title {
   color: white;
   font-weight: 100;
+  text-align: center;
 }
 
 .home-title b {
   font-weight: 700;
+}
+
+@media only screen and (max-width: 432px) {
+
 }
