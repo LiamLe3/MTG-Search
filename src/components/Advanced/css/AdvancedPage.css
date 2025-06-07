@@ -85,7 +85,7 @@ fieldset {
 /* --- Stats --- */
 .stats-row {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 8px;
 }
 
@@ -109,4 +109,30 @@ fieldset {
 .search-btn:hover {
   border-color: #634496;
   background-color: #FFF;
+}
+
+@media only screen and (max-width: 432px) {
+  .form-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+  }
+
+  .advanced-label {
+    min-width: none;
+    margin-bottom: 5px;
+  }
+
+  .advanced-select,
+  .stats-input {
+    width: 100%;
+  }
+
+  .search-btn {
+    margin: 0 auto;
+  }
+
+  .colours-select {
+    margin-top: 10px;
+  }
 }

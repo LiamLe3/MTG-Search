@@ -55,3 +55,15 @@
 .checkbox-group abbr {
   margin-right: 3px;
 }
+
+@media only screen and (max-width: 432px) {
+  .checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .checkbox-label {
+    margin-bottom: 5px;
+  }
+
+}
