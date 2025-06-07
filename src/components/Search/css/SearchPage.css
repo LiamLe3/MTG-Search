@@ -92,3 +92,11 @@ main {
 .error {
   margin-top: 30px;
 }
+
+@media only screen and (max-width: 432px) {
+  .gallery-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+  }
+}
