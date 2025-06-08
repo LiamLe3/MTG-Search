@@ -20,3 +20,10 @@ main {
   margin-bottom: 30px;
   padding-top: 20px;
 }
+
+@media only screen and (max-width: 432px) {
+  .card-page {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -38,3 +38,19 @@
   display: block;
   color: rgb(156, 156, 156);
 }
+
+@media only screen and (max-width: 432px) {
+  .rules-container h2 {
+    margin-bottom: 0px;
+  }
+
+  .rulings {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rulings ul {
+    width: 100%;
+    padding: 0 20px;
+  }
+}
