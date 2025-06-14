@@ -4,6 +4,7 @@ header {
   justify-content: center;
   background-color: #242031;
   height: 5vh;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .header-nav {
